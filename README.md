@@ -1,2 +1,2 @@
-# Bizarre_Equus
+# Bizarre Equus
 The adventures of the bizarre Equus
