@@ -119,7 +119,7 @@ public final class ReadUtilities {
      * @param missatge
      * @return
      */
-    public static String readFrase(String missatge){
+    public static String readPhrase(String missatge){
         System.out.println(missatge);
         return read.nextLine();
     }
@@ -129,7 +129,7 @@ public final class ReadUtilities {
      * @param missatge
      * @return
      */
-    public static String readParaula(String missatge){
+    public static String readWord(String missatge){
         String paraula;
         System.out.println(missatge);
         paraula = read.next();

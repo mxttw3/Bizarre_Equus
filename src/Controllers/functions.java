@@ -2,10 +2,50 @@ package Controllers;
 import Models.*;
 import java.util.ArrayList;
 
+import ENUMS.difficulty;
 import Utils.*;
 
 public class functions {
     ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
+
+
+    public void createUser() {
+
+        String name = ReadUtilities.readWord("""
+                |─────────────|
+                | 1.Bet       |
+                |─────────────|
+                """);
+        String lasName = ReadUtilities.readWord("""
+                |─────────────|
+                | 1.Bet       |
+                |─────────────|
+                """);
+        int age = ReadUtilities.ReadIntMM("""
+                |─────────────|
+                | 1.Bet       |
+                |─────────────|
+                """, 1, 110);
+        // boolean gender = ReadUtilities.readWord("""
+        //         |─────────────|
+        //         | 1.Bet       |
+        //         |─────────────|
+        //         """);
+        int difficulty = ReadUtilities.ReadIntMM("""
+                |─────────────|
+                | 1.Bet       |
+                |─────────────|
+                """, 1, 3);
+        difficulty optionD;
+        switch (difficulty) {
+            case 1 -> optionD = difficulty.EASY_Peasy;
+            case 2 -> optionD = difficulty.MEDIUM;
+            case 3 -> optionD = difficulty.DEMON;
+        }
+
+
+    }
+
 
     // MENU
     public void menu() {
