@@ -1,16 +1,21 @@
 package Controllers;
 import Models.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 import ENUMS.difficulty;
 import Utils.*;
 
 public class functions {
     ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
-    ArrayList<User> userList = new ArrayList<User>();    // |─
-
-
+    Horse juan = new Horse("juan",0,"black",null,"brown","green",true,1,5,10,true,"Tuabuela");
+    Horse juan2 = new Horse("juan2",0,"black",null,"brown","green",false,1,5,10,false,"Tuabuela");
+    User currentUser = null;
+// añadir animales creados al arraylist
     public void createUser() throws InterruptedException {
+        animalList.addAll(Arrays.asList(juan, juan2));
+
 
         System.out.println("Wellcome to Bizarre Races!!!!");
         Thread.sleep(2000);
@@ -59,45 +64,46 @@ public class functions {
             case 3 -> optionD = difficulty.DEMON;
         }
 
-        User user = new User(name, lastName, age, Vgender, optionD);
-        userList.add(user);
-        userList.
+        currentUser = new User(name, lastName, age, Vgender, optionD);
     }
 
 
     // MENU
     public void menu() {
-        int option = ReadUtilities.ReadIntMM("""
-                |─────────────|
-                | 1.Bet       |
-                | 2.User info |
-                | 3.Shop      |
-                | 4.Exit      |
-                |─────────────|
-                """, 1, 5);
+        boolean bucle = true;
+        do{
+            int option = ReadUtilities.ReadIntMM("""
+                    |──────────────|
+                    | 1.Bet        |
+                    | 2.User info  |
+                    | 3.Shop       |
+                    | 3.My animals |
+                    | 4.Exit       |
+                    |──────────────|
+                    """, 1, 5);
 
-        User user = userList;
-        switch (option) {
-            case 1 -> functions.submenuBet();
-            case 2 -> .viewUserInfo();
-            case 3 -> functions.submenuShop();
-            case 4 -> System.exit(0);
-        }
+            switch (option) {
+                case 1 -> submenuBet();
+                case 2 -> currentUser.viewUserInfo();
+                case 3 -> submenuShop();
+                case 4 -> bucle = false;
+            }
+        }while(bucle);
     }
 
     // SUBMENU BET
     public void submenuBet() {
         int option = ReadUtilities.ReadIntMM("""
-            |───────────────|
-            |1.Put my animal|
-            |2.Start        |   
-            |3.Back         |
-            |───────────────|
+            |─────────────────|
+            | 1.Put my animal |
+            | 2.Start         |   
+            | 3.Back          |
+            |─────────────────|
 
                 """, 1, 3);
         switch (option) {
-            case 1 -> ;
-            case 2 -> ;//TODO: bet menu
+            case 1 -> menu();
+            case 2 -> menu();//TODO: bet menu
             case 3 -> menu();
         }
     }
@@ -105,14 +111,16 @@ public class functions {
     // SUBMENU SHOP
     public void submenuShop() {
         int option = ReadUtilities.ReadIntMM("""
-                1.Buy
-                2.Sell
-                3.Breed
-                4.Back
+            |─────────|
+            | 1.Buy   |
+            | 2.Sell  |
+            | 3.Breed |
+            | 4.Back  |
+            |─────────|
                 """, 1, 4);
         switch (option) {
             case 1 -> buy();
-            case 2 -> ; //TODO: Sell menu
+            case 2 -> sell();
             case 3 -> breeder();
             case 4 -> menu();
         }
@@ -120,51 +128,97 @@ public class functions {
 
     // Buy animal
     public void buy() {
-       //TODO: Buy menu
+        System.out.println("Welcome to the shop!!");
+        System.out.println("Here you have a list of our available animals");
+        listAnimals(false);
     }
 
+    public void sell(){
+
+    };
 
 
     // Breeder where if you pay 500$ you can breed an animal that has 60% of being a
     // shit 30% of being normal 10% of being gigachad
-    public void breeder(User user){
+    public void breeder(){
         int option=ReadUtilities.ReadIntMM("""
-        Welcome!
-        What type of animal do you wana get?
-        1.Normal 500$
-        2.Super Animal 1000$
-        3.Back
+    |─────────────────────────────────────────|
+    |   Welcome!                              |
+    |   What type of animal do you wana get?  |
+    |   1.Normal 500$                         |
+    |   2.Super Animal 1000$                  |
+    |   3.Back                                |
+    |─────────────────────────────────────────|
         """, 1, 3);
         switch (option) {
-            case 1 -> { if (user.getMoney()>500){
-
+            case 1 -> { if (currentUser.getMoney()>500){
+                currentUser.setMoney(currentUser.getMoney()-500);
+                String animal1= listAnimals(true);
+                String animal2= listAnimals(true);
             }else {
                 System.out.println("You dont have enought money");
             } 
-        };
-            case 2 -> { if (user.getMoney()>1000){
-
+            }
+            case 2 -> { if (currentUser.getMoney()>1000){
+                currentUser.setMoney(currentUser.getMoney()-1000);
             }else {
                 System.out.println("You dont have enought money");
             } 
-        };
+            }
             case 3 -> submenuShop();
         }
         // TODO: Breed animals
     }
 
     // owned animal selector
-    public void ownedAnimals () {
+    public String listAnimals (boolean mine) {
+        Scanner leer = new Scanner(System.in);
         int numAnimals = 0;
+        String selected=null;
+        do{
+        System.out.println("Select an animal from the list");
         for (Animals animal : animalList) {
+            if(mine){
             if (animal.isMine()) {
-                numAnimals++;
+                animal.viewAnimalInfo();
+            }
+            }else{
+                if (!animal.isMine()) {
+                    animal.viewAnimalInfo();
+                }
+            } 
+        }
+        
+        selected = leer.next();
+        for (Animals animal : animalList) {
+            if(mine){
+            if (animal.getName().equals(selected) && animal.isMine()) {
+                return selected;
+            }
+            }else{
+                if (animal.getName().equals(selected) && !animal.isMine()) {
+                    return selected;
+                }
             }
         }
-        System.out.println("Number of animals that are mine: " + numAnimals);
+        System.out.println("Animal not found with this name");
+        }while(selected!=null);
+        return null;
     }
-
+ 
 
     
 
 }
+
+// System.out.println("""            
+//     .  ,
+//     |\\/|
+//     bd "n.
+//    /   _,"n.___.,--x.
+//   '\\             Y
+//    ~~   \\       L   7|
+//          H l--'~\\\\ (||
+//          H l     H |`'    -Row (Rowan Crawford)
+//          H [     H [
+//     ____//,]____//,]___""");

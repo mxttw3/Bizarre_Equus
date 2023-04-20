@@ -4,7 +4,9 @@ import Models.*;
 
 public class main {
     public static void main(String[] args) throws Exception {
-        functions.menu();
+        functions m = new functions();
+        m.createUser();
+        m.menu();
 
     }
 }

@@ -42,4 +42,4 @@ Velocidad: 40%
 Resistencia: 30%
 Agilidad: 30%
 
-(99x40) + (50x30) + (15x 30) / 100
+(x * 40) + (x * 30) + (x * 30) / 100
