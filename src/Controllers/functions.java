@@ -143,7 +143,12 @@ public class functions {
     }
 
     public void sell(){
-
+        System.out.println("Welcome to the shop!!");
+        System.out.println("Here you have a list of your animals:");
+        Animals selected = listAnimals(true, true);
+            currentUser.setMoney(currentUser.getMoney() + selected.getPrice());
+            selected.setMine(false);
+            System.out.println("You have sold " + selected.getName()); 
     };
 
 
