@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 import ENUMS.difficulty;
 import Utils.*;
 
 public class functions {
     ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
-    Horse juan = new Horse("juan",0,"black",null,"brown","green",true,1,5,10,true,"Tuabuela");
-    Horse juan2 = new Horse("juan2",0,"black",null,"brown","green",false,1,5,10,false,"Tuabuela");
+    Horse juan = new Horse("juan",0,"black",null,"brown","green",true,1,5,10,true,"Tuabuela",100);
+    Horse juan2 = new Horse("juan2",0,"black",null,"brown","green",false,1,5,10,false,"Tuabuela",100);
     User currentUser = null;
 // añadir animales creados al arraylist
     public void createUser() throws InterruptedException {
         animalList.addAll(Arrays.asList(juan, juan2));
-
+        HorseGenerator Hgenerator = new HorseGenerator();
+        Hgenerator.generateHorse(animalList);
 
         System.out.println("Wellcome to Bizarre Races!!!!");
         Thread.sleep(2000);
@@ -180,11 +182,11 @@ public class functions {
         for (Animals animal : animalList) {
             if(mine){
             if (animal.isMine()) {
-                animal.viewAnimalInfo();
+                animal.viewAnimalInfo(1);
             }
             }else{
                 if (!animal.isMine()) {
-                    animal.viewAnimalInfo();
+                    animal.viewAnimalInfo(1);
                 }
             } 
         }

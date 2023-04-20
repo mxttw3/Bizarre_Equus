@@ -1,8 +1,11 @@
 package Models;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Random;
 
 import Models.*;
+
 public class Horse extends Animals implements interact {
     private String race;
 
@@ -29,6 +32,5 @@ public class Horse extends Animals implements interact {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'patpat'");
     }
-
 
 }
