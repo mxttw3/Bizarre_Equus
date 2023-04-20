@@ -19,7 +19,11 @@ public class functions {
     public void createUser() throws InterruptedException {
         animalList.addAll(Arrays.asList(juan, juan2));
         HorseGenerator Hgenerator = new HorseGenerator();
+        CamelGenerator Cgenerator = new CamelGenerator();
+        GreyhoundGenerator Ggenerator = new GreyhoundGenerator();
         Hgenerator.generateHorse(animalList);
+        Cgenerator.generateCamel(animalList);
+        Ggenerator.generateGreyhound(animalList);
 
         System.out.println("Wellcome to Bizarre Races!!!!");
         Thread.sleep(2000);
