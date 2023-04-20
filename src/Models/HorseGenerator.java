@@ -1,7 +1,6 @@
 package Models;
 import java.util.ArrayList;
 import java.time.LocalDate;
-import java.sql.Date;
 import java.util.Random;
 import Models.Horse;
 
@@ -32,7 +31,7 @@ public class HorseGenerator {
     }
 
     private int generatePrice(int speed, int endurance, int agility) {
-        int price = (speed + endurance + agility) * 10;
+        int price = (speed + endurance + agility) * 8;
         return price;
     }
 
