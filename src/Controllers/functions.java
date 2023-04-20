@@ -3,12 +3,13 @@ import Models.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+
 import ENUMS.difficulty;
 import Utils.*;
 
 public class functions {
-    ArrayList<Animals> animalList = new ArrayList<Animals>();// |─
-
+    ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
     Horse juan = new Horse("juan",0,"black",null,"brown","green",true,1,5,10,true,"Tuabuela",100);
 
     Horse juan2 = new Horse("juan2",0,"black",null,"brown","green",false,1,5,10,false,"Tuabuela",100);
