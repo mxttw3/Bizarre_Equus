@@ -7,49 +7,66 @@ import Utils.*;
 
 public class functions {
     ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
+    ArrayList<User> userList = new ArrayList<User>();    // |─
 
 
-    public void createUser() {
+    public void createUser() throws InterruptedException {
 
+        System.out.println("Wellcome to Bizarre Races!!!!");
+        Thread.sleep(2000);
         String name = ReadUtilities.readWord("""
-                |─────────────|
-                | 1.Bet       |
-                |─────────────|
+                |───────────────────|
+                | What's your name? |
+                |───────────────────|
                 """);
-        String lasName = ReadUtilities.readWord("""
-                |─────────────|
-                | 1.Bet       |
-                |─────────────|
+        String lastName = ReadUtilities.readWord("""
+                |─────────────────────|
+                | And your last name? |
+                |─────────────────────|
                 """);
         int age = ReadUtilities.ReadIntMM("""
-                |─────────────|
-                | 1.Bet       |
-                |─────────────|
+                |──────────────────|
+                | How old are you? |
+                |──────────────────|
                 """, 1, 110);
-        // boolean gender = ReadUtilities.readWord("""
-        //         |─────────────|
-        //         | 1.Bet       |
-        //         |─────────────|
-        //         """);
-        int difficulty = ReadUtilities.ReadIntMM("""
-                |─────────────|
-                | 1.Bet       |
-                |─────────────|
+        int gender = ReadUtilities.ReadIntMM("""
+                |────────────────────────|
+                | You're a men o women   |
+                | 1.Men                  |
+                | 1.Women                |
+                |────────────────────────|
+                """, 1, 2);
+
+        boolean Vgender = true;         
+        if (gender == 1) {
+            Vgender = true;
+        }else{
+            Vgender = false;
+        }
+        int Vdifficulty = ReadUtilities.ReadIntMM("""
+                |────────────────────────────────|
+                |  What difficulty you choose :) |
+                | 1.Easy Peasy                   |
+                | 1.Medium                       |
+                | 1.Demon                        |
+                |────────────────────────────────|
                 """, 1, 3);
-        difficulty optionD;
-        switch (difficulty) {
-            case 1 -> optionD = difficulty.EASY_Peasy;
+
+        difficulty optionD = difficulty.MEDIUM;
+        switch (Vdifficulty) {
+            case 1 -> optionD = difficulty.EASY_PEASY;
             case 2 -> optionD = difficulty.MEDIUM;
             case 3 -> optionD = difficulty.DEMON;
         }
 
-
+        User user = new User(name, lastName, age, Vgender, optionD);
+        userList.add(user);
+        userList.
     }
 
 
     // MENU
     public void menu() {
-
         int option = ReadUtilities.ReadIntMM("""
                 |─────────────|
                 | 1.Bet       |
@@ -58,9 +75,11 @@ public class functions {
                 | 4.Exit      |
                 |─────────────|
                 """, 1, 5);
+
+        User user = userList;
         switch (option) {
             case 1 -> functions.submenuBet();
-            case 2 -> user.viewUserInfo();
+            case 2 -> .viewUserInfo();
             case 3 -> functions.submenuShop();
             case 4 -> System.exit(0);
         }
