@@ -11,9 +11,11 @@ import Utils.*;
 public class functions {
     ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
     Horse juan = new Horse("juan",0,"black",null,"brown","green",true,1,5,10,true,"Tuabuela",100);
+
     Horse juan2 = new Horse("juan2",0,"black",null,"brown","green",false,1,5,10,false,"Tuabuela",100);
     User currentUser = null;
-// añadir animales creados al arraylist
+
+    // añadir animales creados al arraylist
     public void createUser() throws InterruptedException {
         animalList.addAll(Arrays.asList(juan, juan2));
         HorseGenerator Hgenerator = new HorseGenerator();
@@ -65,14 +67,13 @@ public class functions {
             case 2 -> optionD = difficulty.MEDIUM;
             case 3 -> optionD = difficulty.DEMON;
         }
-
         currentUser = new User(name, lastName, age, Vgender, optionD);
     }
-
 
     // MENU
     public void menu() {
         boolean bucle = true;
+
         do{
             int option = ReadUtilities.ReadIntMM("""
                     |──────────────|
@@ -81,7 +82,7 @@ public class functions {
                     | 3.Shop       |
                     | 3.My animals |
                     | 4.Exit       |
-                    |──────────────|
+                    |──────────────| 
                     """, 1, 5);
 
             switch (option) {
@@ -108,6 +109,17 @@ public class functions {
             case 2 -> menu();//TODO: bet menu
             case 3 -> menu();
         }
+    }
+
+    public void AnimalsForRace() {
+        //TODO: poner animales en la carrera
+        
+    }
+
+    public void StartRace() {
+        //TODO: EmpezarCarrera
+        
+
     }
 
     // SUBMENU SHOP
@@ -141,14 +153,16 @@ public class functions {
             System.out.println("You dont have enought money");
         }
     }
-
     public void sell(){
+<<<<<<< HEAD
+=======
         System.out.println("Welcome to the shop!!");
         System.out.println("Here you have a list of your animals:");
         Animals selected = listAnimals(true, true);
             currentUser.setMoney(currentUser.getMoney() + selected.getPrice());
             selected.setMine(false);
             System.out.println("You have sold " + selected.getName()); 
+>>>>>>> e480c9cc1ecf1967c7145b625a664ad6da8ee3e5
     };
 
 

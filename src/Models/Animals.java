@@ -35,6 +35,10 @@ public abstract class Animals {
         this.isMine = isMine;
         this.price = price;
     }
+   
+    public void setMine(boolean isMine) {
+        this.isMine = isMine;
+    }
 
     public void setMine(boolean isMine) {
         this.isMine = isMine;
@@ -58,12 +62,21 @@ public abstract class Animals {
 '/ )\\ ).__. )\s
 ' <' `\\ ._/'\\
    `   \\     \\""");
+<<<<<<< HEAD
+   System.out.print("Name: " + this.name + " Birth: " + this.Birth + " Speed: " + this.speed + " Endurance: " + this.endurance + " Agility: " + this.agility);       
+   if(showPrice)
+   {System.out.println(" Price: " + this.price);
+};
+    }
+ 
+=======
             System.out.print("Name: " + this.name + " Birth: " + this.Birth + " Speed: " + this.speed + " Endurance: " + this.endurance + " Agility: " + this.agility);       
             if(showPrice)
             {System.out.println(" Price: " + this.price);
         };
         }
 
+>>>>>>> e480c9cc1ecf1967c7145b625a664ad6da8ee3e5
     public int getPrice() {
         return price;
     }
@@ -71,5 +84,9 @@ public abstract class Animals {
     public void setPrice(int price) {
         this.price = price;
     }
+<<<<<<< HEAD
+   
+=======
+>>>>>>> e480c9cc1ecf1967c7145b625a664ad6da8ee3e5
 
 }
