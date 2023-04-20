@@ -3,17 +3,18 @@ import Models.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-
-
 import ENUMS.difficulty;
 import Utils.*;
 
 public class functions {
-    ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
+    ArrayList<Animals> animalList = new ArrayList<Animals>();// |─
+
     Horse juan = new Horse("juan",0,"black",null,"brown","green",true,1,5,10,true,"Tuabuela",100);
+
     Horse juan2 = new Horse("juan2",0,"black",null,"brown","green",false,1,5,10,false,"Tuabuela",100);
     User currentUser = null;
-// añadir animales creados al arraylist
+
+    // añadir animales creados al arraylist
     public void createUser() throws InterruptedException {
         animalList.addAll(Arrays.asList(juan, juan2));
         HorseGenerator Hgenerator = new HorseGenerator();
@@ -65,14 +66,13 @@ public class functions {
             case 2 -> optionD = difficulty.MEDIUM;
             case 3 -> optionD = difficulty.DEMON;
         }
-
         currentUser = new User(name, lastName, age, Vgender, optionD);
     }
-
 
     // MENU
     public void menu() {
         boolean bucle = true;
+
         do{
             int option = ReadUtilities.ReadIntMM("""
                     |──────────────|
@@ -81,7 +81,7 @@ public class functions {
                     | 3.Shop       |
                     | 3.My animals |
                     | 4.Exit       |
-                    |──────────────|
+                    |──────────────| 
                     """, 1, 5);
 
             switch (option) {
@@ -110,6 +110,17 @@ public class functions {
         }
     }
 
+    public void AnimalsForRace() {
+        //TODO: poner animales en la carrera
+        
+    }
+
+    public void StartRace() {
+        //TODO: EmpezarCarrera
+        
+
+    }
+
     // SUBMENU SHOP
     public void submenuShop() {
         int option = ReadUtilities.ReadIntMM("""
@@ -134,9 +145,7 @@ public class functions {
         System.out.println("Here you have a list of our available animals");
         listAnimals(false);
     }
-
     public void sell(){
-
     };
 
 
