@@ -18,10 +18,12 @@ public class User {
     private boolean gender;
     private difficulty Vdifficulty;
 
-    public User(String name, String lastName, int age, difficulty vdifficulty) {
+
+    public User(String name, String lastName, int age, boolean gender, difficulty vdifficulty) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+        this.gender = gender;
         Vdifficulty = vdifficulty;
         moneyMaker();
     }
