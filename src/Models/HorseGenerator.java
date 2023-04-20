@@ -1,5 +1,6 @@
 package Models;
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.sql.Date;
 import java.util.Random;
 import Models.Horse;
@@ -12,9 +13,9 @@ public class HorseGenerator {
             
         
         String name = generateRandomName();
-        int raceNumber = rand.nextInt(1000);
+        int raceNumber = 0;
         String color = generateRandomColor();
-        Date birth = generateRandomBirthDate();
+        LocalDate birth = generateRandomBirthDate();
         String hair = generateRandomHair();
         String eyeColor = generateRandomEyeColor();
         boolean gender = rand.nextBoolean();
@@ -22,14 +23,19 @@ public class HorseGenerator {
         int endurance = rand.nextInt(100) + 1;
         int agility = rand.nextInt(100) + 1;
         boolean isMine = false;
-        String race = null;
-        int price = rand.nextInt(5000) + 1;
+        String race = generateRandomRace();
+        int price = generatePrice(speed, endurance, agility);
         Horse horseName = new Horse(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance, agility, isMine, race, price);
         animalList.add(horseName);
         }
         return animalList;
     }
 
+    private int generatePrice(int speed, int endurance, int agility) {
+        int price = (speed + endurance + agility) * 10;
+        return price;
+    }
+   
     private String generateRandomName() {
         String[] names = { "Thunderbolt", "Midnight", "Blaze", "Spirit", "Wildfire", "Majesty", "Stormy",
                 "Comet", "Pegasus", "Dancer", "Freedom", "Knight", "Galaxy", "Phoenix",
@@ -41,17 +47,23 @@ public class HorseGenerator {
     }
 
     private String generateRandomColor() {
-        String[] colors = { "black", "brown", "white", "gray", "chestnut" };
+        String[] colors = { "black", "brown", "white", "gray" };
         return colors[rand.nextInt(colors.length)];
     }
 
-    private Date generateRandomBirthDate() {
-        long maxDateMillis = System.currentTimeMillis();
-        long minDateMillis = maxDateMillis - (365L * 24L * 60L * 60L * 1000L * 20L); // max age: 20 years
-        long randomDateMillis = minDateMillis + (long) (rand.nextDouble() * (maxDateMillis - minDateMillis));
-        return new Date(randomDateMillis);
+    private LocalDate generateRandomBirthDate() {
+        final int EDAD_MAXIMA = 20;
+        LocalDate fechaActual = LocalDate.now();
+        Random rand = new Random();
+        int edadAleatoria = rand.nextInt(EDAD_MAXIMA + 1);
+        int diaAleatorio = rand.nextInt(28) + 1; // máximo 28 días para simplificar
+        int mesAleatorio = rand.nextInt(12) + 1; // 12 meses en un año
+        int anioAleatorio = fechaActual.getYear() - edadAleatoria;
+        LocalDate fechaNacimientoAleatoria = LocalDate.of(anioAleatorio, mesAleatorio, diaAleatorio);
+        return fechaNacimientoAleatoria;
     }
 
+  
     private String generateRandomHair() {
         String[] hairTypes = { "short", "long", "mane" };
         return hairTypes[rand.nextInt(hairTypes.length)];
@@ -61,4 +73,11 @@ public class HorseGenerator {
         String[] eyeColors = { "brown", "blue", "green", "gray" };
         return eyeColors[rand.nextInt(eyeColors.length)];
     }
+
+    private String generateRandomRace() {
+        String[] races = { "Thoroughbred", "Quarter Horse", "Arabian", "Paint Horse", "Appaloosa", "Warmblood",
+                    "Morgan", "Mustang", "Andalusian", "Friesian", "Haflinger", "Tennessee Walking Horse", };
+        return races[rand.nextInt(races.length)];
+    }
+    
 }

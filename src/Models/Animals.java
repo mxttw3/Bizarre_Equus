@@ -1,6 +1,7 @@
 package Models;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public abstract class Animals {
     private static int recuento = 0; //TODO: Ver en ingles
@@ -8,7 +9,7 @@ public abstract class Animals {
     private String name;
     private int raceNumber;
     private String Color;
-    private Date Birth;
+    private LocalDate Birth;
     private String hair;
     private String EyeColor;
     private boolean gender; // True: men False: women 
@@ -19,7 +20,7 @@ public abstract class Animals {
     private int price;
 
     
-    public Animals(String name, int raceNumber, String color, Date birth, String hair, String eyeColor, boolean gender,
+    public Animals(String name, int raceNumber, String color, LocalDate birth, String hair, String eyeColor, boolean gender,
             int speed, int endurance, int agility, boolean isMine, int price) {
         this.name = name;
         this.raceNumber = raceNumber;
@@ -34,6 +35,10 @@ public abstract class Animals {
         this.isMine = isMine;
         this.price = price;
     }
+   
+    public void setMine(boolean isMine) {
+        this.isMine = isMine;
+    }
 
     public boolean isMine() {
         return isMine;
@@ -43,7 +48,7 @@ public abstract class Animals {
         return name;
     }
 
-    public void viewAnimalInfo(int type) {
+    public void viewAnimalInfo(int type, boolean showPrice) {
 
         
         System.out.println("""            
@@ -53,9 +58,19 @@ public abstract class Animals {
 '/ )\\ ).__. )\s
 ' <' `\\ ._/'\\
    `   \\     \\""");
-            System.out.println("Name: " + this.name + " Birth: " + this.Birth + " Speed: " + this.speed + " Endurance: " + this.endurance + " Agility: " + this.agility);       
+   System.out.print("Name: " + this.name + " Birth: " + this.Birth + " Speed: " + this.speed + " Endurance: " + this.endurance + " Agility: " + this.agility);       
+   if(showPrice)
+   {System.out.println(" Price: " + this.price);
+};
+    }
+ 
+    public int getPrice() {
+        return price;
     }
 
-    
+    public void setPrice(int price) {
+        this.price = price;
+    }
+   
 
 }
