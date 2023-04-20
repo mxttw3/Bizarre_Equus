@@ -131,8 +131,15 @@ public class functions {
     // Buy animal
     public void buy() {
         System.out.println("Welcome to the shop!!");
-        System.out.println("Here you have a list of our available animals");
-        listAnimals(false);
+        System.out.println("Here you have a list of our available animals:");
+        Animals selected = listAnimals(false, true);
+        if (selected.getPrice() <= currentUser.getMoney()) {
+            currentUser.setMoney(currentUser.getMoney() - selected.getPrice());
+            selected.setMine(true);
+            System.out.println("You have bought " + selected.getName());
+        } else {
+            System.out.println("You dont have enought money");
+        }
     }
 
     public void sell(){
@@ -155,8 +162,8 @@ public class functions {
         switch (option) {
             case 1 -> { if (currentUser.getMoney()>500){
                 currentUser.setMoney(currentUser.getMoney()-500);
-                String animal1= listAnimals(true);
-                String animal2= listAnimals(true);
+                Animals animal1= listAnimals(true, false);
+                Animals animal2= listAnimals(true, false);
             }else {
                 System.out.println("You dont have enought money");
             } 
@@ -173,40 +180,64 @@ public class functions {
     }
 
     // owned animal selector
-    public String listAnimals (boolean mine) {
+    public Animals listAnimals (boolean mine, boolean showPrice) {
         Scanner leer = new Scanner(System.in);
-        int numAnimals = 0;
-        String selected=null;
+        Animals selected=null;
         do{
-        System.out.println("Select an animal from the list");
+        System.out.println("Select an animal from the list using its ID");
         for (Animals animal : animalList) {
             if(mine){
             if (animal.isMine()) {
-                animal.viewAnimalInfo(1);
+                animal.viewAnimalInfo(1, showPrice);
+                System.out.println("ID:"+ animalList.indexOf(animal));
             }
             }else{
                 if (!animal.isMine()) {
-                    animal.viewAnimalInfo(1);
+                    animal.viewAnimalInfo(1, showPrice);
+                    System.out.println("ID:"+ animalList.indexOf(animal));
                 }
             } 
         }
-        
-        selected = leer.next();
-        for (Animals animal : animalList) {
-            if(mine){
-            if (animal.getName().equals(selected) && animal.isMine()) {
-                return selected;
-            }
-            }else{
-                if (animal.getName().equals(selected) && !animal.isMine()) {
-                    return selected;
-                }
-            }
-        }
-        System.out.println("Animal not found with this name");
-        }while(selected!=null);
-        return null;
+        selected=animalList.get(ReadUtilities.ReadIntMM(null, 0 , animalList.size()));
+        return selected;
+    }while(selected==null);
     }
+
+
+    // public String listAnimals (boolean mine, boolean showPrice) {
+    //     Scanner leer = new Scanner(System.in);
+    //     int numAnimals = 0;
+    //     String selected=null;
+    //     do{
+    //     System.out.println("Select an animal from the list");
+    //     for (Animals animal : animalList) {
+    //         if(mine){
+    //         if (animal.isMine()) {
+    //             animal.viewAnimalInfo(1, showPrice);
+    //         }
+    //         }else{
+    //             if (!animal.isMine()) {
+    //                 animal.viewAnimalInfo(1, showPrice);
+    //             }
+    //         } 
+    //     }
+        
+    //     selected = leer.next();
+    //     for (Animals animal : animalList) {
+    //         if(mine){
+    //         if (animal.getName().equals(selected) && animal.isMine()) {
+    //             return selected;
+    //         }
+    //         }else{
+    //             if (animal.getName().equals(selected) && !animal.isMine()) {
+    //                 return selected;
+    //             }
+    //         }
+    //     }
+    //     System.out.println("Animal not found with this name");
+    //     }while(selected!=null);
+    //     return null;
+    // }
  
 
     
