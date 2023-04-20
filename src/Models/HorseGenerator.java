@@ -35,7 +35,11 @@ public class HorseGenerator {
         int price = (speed + endurance + agility) * 10;
         return price;
     }
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> e480c9cc1ecf1967c7145b625a664ad6da8ee3e5
     private String generateRandomName() {
         String[] names = { "Thunderbolt", "Midnight", "Blaze", "Spirit", "Wildfire", "Majesty", "Stormy",
                 "Comet", "Pegasus", "Dancer", "Freedom", "Knight", "Galaxy", "Phoenix",
@@ -63,7 +67,11 @@ public class HorseGenerator {
         return fechaNacimientoAleatoria;
     }
 
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> e480c9cc1ecf1967c7145b625a664ad6da8ee3e5
     private String generateRandomHair() {
         String[] hairTypes = { "short", "long", "mane" };
         return hairTypes[rand.nextInt(hairTypes.length)];
