@@ -59,9 +59,9 @@ public class functions {
                 |─────────────|
                 """, 1, 5);
         switch (option) {
-            case 1 -> functions.submenuBet();
-            case 2 -> user.viewUserInfo();
-            case 3 -> functions.submenuShop();
+            case 1 -> submenuBet();
+            case 2 -> User.viewUserInfo();
+            case 3 -> submenuShop();
             case 4 -> System.exit(0);
         }
     }
@@ -108,17 +108,27 @@ public class functions {
 
     // Breeder where if you pay 500$ you can breed an animal that has 60% of being a
     // shit 30% of being normal 10% of being gigachad
-    public void breeder(){
+    public void breeder(User user){
         int option=ReadUtilities.ReadIntMM("""
         Welcome!
         What type of animal do you wana get?
         1.Normal 500$
-        2.Super Animal 100$
+        2.Super Animal 1000$
         3.Back
         """, 1, 3);
         switch (option) {
-            case 1 -> ;
-            case 2 -> ;
+            case 1 -> { if (user.getMoney()>500){
+
+            }else {
+                System.out.println("You dont have enought money");
+            } 
+        };
+            case 2 -> { if (user.getMoney()>1000){
+
+            }else {
+                System.out.println("You dont have enought money");
+            } 
+        };
             case 3 -> submenuShop();
         }
         // TODO: Breed animals

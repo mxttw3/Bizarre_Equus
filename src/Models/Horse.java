@@ -1,5 +1,7 @@
 package Models;
+import java.util.Random;
 
+import Models.*;
 public class Horse extends Animals implements interact {
     private String race;
 

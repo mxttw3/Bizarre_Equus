@@ -6,6 +6,15 @@ public class User {
     private String lastName;
     private int age;
     private int money;
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
+    }   
+
     private boolean gender;
     private difficulty Vdifficulty;
 
@@ -39,7 +48,9 @@ public class User {
             """);
             System.out.println("Name: " + this.name + " " + this.lastName + " Age: " + this.age + " Money: " + this.money);
         }
-    }   
+    }
+
+
 }
 
 //               _,,,_
