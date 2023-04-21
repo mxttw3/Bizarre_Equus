@@ -1,14 +1,13 @@
 package Models;
-
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Random;
 import Models.Horse;
 
-public class HorseGenerator {
-    private final Random rand = new Random();
+public class GreyhoundGenerator {
+    private Random rand = new Random();
 
-    public ArrayList generateHorse(ArrayList animalList) {
+    public ArrayList generateGreyhound(ArrayList animalList) {
         for (int i = 0; i < 30; i++) {
 
             String name = generateRandomName();
@@ -22,11 +21,10 @@ public class HorseGenerator {
             int endurance = rand.nextInt(100) + 1;
             int agility = rand.nextInt(100) + 1;
             boolean isMine = false;
-            String race = generateRandomRace();
             int price = generatePrice(speed, endurance, agility);
-            Horse horseName = new Horse(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance,
-                    agility, isMine, race, price);
-            animalList.add(horseName);
+            Greyhound greyhounds = new Greyhound(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance,
+                    agility, isMine, price);
+            animalList.add(greyhounds);
         }
         return animalList;
     }
@@ -37,17 +35,16 @@ public class HorseGenerator {
     }
 
     private String generateRandomName() {
-        String[] names = { "Thunderbolt", "Midnight", "Blaze", "Spirit", "Wildfire", "Majesty", "Stormy",
-                "Comet", "Pegasus", "Dancer", "Freedom", "Knight", "Galaxy", "Phoenix",
-                "Mystique", "Sundance", "Sable", "Bandit", "Willow", "Lucky", "Rainbow",
-                "Whisper", "Apollo", "Jupiter", "Neptune", "Orion", "Titan", "Venus",
-                "Amber", "Cinnamon", "Cocoa", "Dusty", "Ebony", "Ginger", "Honey",
-                "Maple", "Pumpkin", "Saffron", "Sienna", "Tawny", "Topaz" };
+        String[] names = {"Amir", "Zara", "Aswan", "Sahara", "Abdullah", "Zahara", "Arabian", "Nefertiti", 
+            "Cairo", "Sahar", "Horus", "Osiris", "Sphinx", "Bastet", "Anubis", "Ramses", 
+            "Kamal", "Layla", "Ali", "Fatima", "Jasmine", "Mustafa", "Nadir", "Noor", 
+            "Omar", "Hassan", "Amina", "Salim", "Samar", "Sana", "Sultan", "Yasmin"};
         return names[rand.nextInt(names.length)];
     }
+    
 
     private String generateRandomColor() {
-        String[] colors = { "black", "brown", "white", "gray" };
+        String[] colors = { "beige", "brown", "black", "gray", "white" };
         return colors[rand.nextInt(colors.length)];
     }
 
@@ -73,10 +70,6 @@ public class HorseGenerator {
         return eyeColors[rand.nextInt(eyeColors.length)];
     }
 
-    private String generateRandomRace() {
-        String[] races = { "Thoroughbred", "Quarter Horse", "Arabian", "Paint Horse", "Appaloosa", "Warmblood",
-                "Morgan", "Mustang", "Andalusian", "Friesian", "Haflinger", "Tennessee Walking Horse", };
-        return races[rand.nextInt(races.length)];
-    }
+    
 
 }

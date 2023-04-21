@@ -1,7 +1,15 @@
 package Models;
 
+import java.time.LocalDate;
+
 public class Camels extends Animals implements interact {
     private String race;
+
+    public Camels(String name, int raceNumber, String color, LocalDate birth, String hair, String eyeColor,
+            boolean gender, int speed, int endurance, int agility, boolean isMine, int price, String race) {
+        super(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance, agility, isMine, price);
+        this.race = race;
+    }
 
     @Override
     public String eat() {

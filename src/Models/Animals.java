@@ -40,10 +40,6 @@ public abstract class Animals {
         this.isMine = isMine;
     }
 
-    public void setMine(boolean isMine) {
-        this.isMine = isMine;
-    }
-
     public boolean isMine() {
         return isMine;
     }

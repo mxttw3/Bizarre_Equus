@@ -17,7 +17,11 @@ public class functions {
     // añadir animales creados al arraylist
     public void createUser() throws InterruptedException {
         HorseGenerator Hgenerator = new HorseGenerator();
+        CamelGenerator Cgenerator = new CamelGenerator();
+        GreyhoundGenerator Ggenerator = new GreyhoundGenerator();
         Hgenerator.generateHorse(animalList);
+        Cgenerator.generateCamel(animalList);
+        Ggenerator.generateGreyhound(animalList);
 
         System.out.println("Wellcome to Bizarre Races!!!!");
         Thread.sleep(2000);
