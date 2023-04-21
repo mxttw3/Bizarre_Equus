@@ -40,9 +40,5 @@ public class Horse extends Animals implements interact {
     public void setRace(String race) {
         this.race = race;
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> e480c9cc1ecf1967c7145b625a664ad6da8ee3e5
 }
