@@ -1,6 +1,8 @@
 package Controllers;
 import Models.*;
 import Generators.*;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -151,7 +153,7 @@ public class functions {
             
 
             //TODO: Cojer caballo de tu lista
-            cincoObjetos.add(listAnimals(true, false));
+            cincoObjetos.add(listAnimals(true, false,true));
             StartRace();
             cincoObjetos.clear();
         }
@@ -241,7 +243,7 @@ public class functions {
     public void buy() {
         System.out.println("Welcome to the shop!!");
         System.out.println("Here you have a list of our available animals:");
-        Animals selected = listAnimals(false, true);
+        Animals selected = listAnimals(false, true, true);
         if (selected.getPrice() <= currentUser.getMoney()) {
             currentUser.setMoney(currentUser.getMoney() - selected.getPrice());
             selected.setMine(true);
@@ -253,7 +255,7 @@ public class functions {
     public void sell(){
         System.out.println("Welcome to the shop!!");
         System.out.println("Here you have a list of your animals:");
-        Animals selected = listAnimals(true, true);
+        Animals selected = listAnimals(true, true, false);
             currentUser.setMoney(currentUser.getMoney() + selected.getPrice());
             selected.setMine(false);
             System.out.println("You have sold " + selected.getName()); 
@@ -289,6 +291,7 @@ public class functions {
                     int numeroAleatorio = rand.nextInt(10);
                     int last = animalList.size()-1;
                     animalList.get(last).setMine(true);
+                    animalList.get(last).setBirth(LocalDate.now());
                     if(numeroAleatorio > 0 && numeroAleatorio < 6){
                         int skillsAleatorio = rand.nextInt(30);
                         animalList.get(last).setSpeed(skillsAleatorio);
@@ -381,7 +384,7 @@ public class functions {
     }
 
     // owned animal selector
-    public Animals listAnimals (boolean mine, boolean showPrice) {
+    public Animals listAnimals (boolean mine, boolean showPrice, boolean buy) {
         Scanner leer = new Scanner(System.in);
         Animals selected=null;
         do{
@@ -389,13 +392,12 @@ public class functions {
         for (Animals animal : animalList) {
             if(mine){
             if (animal.isMine()) {
-
-                animal.viewAnimalInfo(animal.getClass().getName(), showPrice);
+                    animal.viewAnimalInfo(animal.getClass().getName(), showPrice, buy);
                 System.out.println("ID:"+ animalList.indexOf(animal));
             }
             }else{
                 if (!animal.isMine()) {
-                    animal.viewAnimalInfo(animal.getClass().getName(), showPrice);
+                    animal.viewAnimalInfo(animal.getClass().getName(), showPrice, buy);
                     System.out.println("ID:"+ animalList.indexOf(animal));
                 }
             } 

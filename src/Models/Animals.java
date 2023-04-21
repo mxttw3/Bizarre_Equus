@@ -53,7 +53,7 @@ public abstract class Animals {
         System.out.println("-- ANIMAL --");
     }
 
-    public void viewAnimalInfo(String type, boolean showPrice) {
+    public void viewAnimalInfo(String type, boolean showPrice, boolean buy) {
         if(type == "Models.Horse"){
         System.out.println("""
                             .''
@@ -92,10 +92,12 @@ public abstract class Animals {
     }
     System.out.print("Name: " + this.name + " Birth: " + this.Birth + " Speed: " + this.speed + " Endurance: "
                 + this.endurance + " Agility: " + this.agility);
-        if (showPrice) {
+        if (showPrice && buy) {
             System.out.println(" Price: " + this.price);
-        };
+        }else if (showPrice && !buy) {
+            System.out.println(" Price: " + this.price/2);
     }
+}
 
     public int getPrice() {
         return price;
@@ -127,6 +129,10 @@ public abstract class Animals {
 
     public void setAgility(int agility) {
         this.agility = agility;
+    }
+
+    public void setBirth(LocalDate birth) {
+        Birth = birth;
     }
 
 }
