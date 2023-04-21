@@ -71,7 +71,7 @@ public abstract class Animals {
         System.out.println("""
             
                 """);
-
+    }
     System.out.print("Name: " + this.name + " Birth: " + this.Birth + " Speed: " + this.speed + " Endurance: "
                 + this.endurance + " Agility: " + this.agility);
         if (showPrice) {

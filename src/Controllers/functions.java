@@ -163,21 +163,48 @@ public class functions {
 
         for (int i = 0; i < cincoObjetos.size(); i++) {
             RaceBoard[i][0] = cincoObjetos.get(i);
-        }
+        };
 
+
+        //Calcular las skills de los animales
         for (int i = 0; i < cincoObjetos.size(); i++) {
             VectorSkills[i] = ((cincoObjetos.get(i).getSpeed() * 40) + (cincoObjetos.get(i).getAgility() * 30) + (cincoObjetos.get(i).getEndurance()* 30))/100;
-        }
+        };
 
-        for (int i = 0; i < cincoObjetos.size(); i++) {
-            RandomSkills[i] =  ((int)Math.random() * VectorSkills[i]);
+        do{
+            int max = 0, MaxPosition = 0, Vcolumn = 0;
+            // Crear probabilidad de pasar a la siguiente casilla del tablero
+            for (int i = 0; i < cincoObjetos.size(); i++) {
+                do{
+                RandomSkills[i] =  ((int)Math.random() * VectorSkills[i]);
+                }while(RandomSkills[i] == 0);
+            };
+
+            // Buscar numero ganador para moverlo
+            for (int i = 0; i < RandomSkills.length; i++) {
+                if (RandomSkills[i] > max) {
+                    max = RandomSkills[i];
+                    MaxPosition = i;
+                }
+            }
+
+            // Mover el animal ganador
+            for (int fila = 0; fila < RaceBoard.length; fila++) {
+                for (int columna = 0; columna < RaceBoard[fila].length; columna++) {
+                    // Si el elemento actual del arreglo es igual al objeto que estás buscando,
+                    // entonces el objeto está en esta posición del arreglo.
+                    if (RaceBoard[fila][columna] == cincoObjetos.get(MaxPosition)) {                            
+                        Vcolumn = columna;
+                        break; // Terminar la búsqueda una vez que se ha encontrado el objeto.
+                    }
+                }
+            }
             
-        }
-;
-        
+            Vcolumn = Vcolumn + 1;
+            RaceBoard[MaxPosition][Vcolumn] = cincoObjetos.get(MaxPosition);
+            RaceBoard[MaxPosition][Vcolumn - 1] = null;
 
-
-        
+        }while (true);
     }
 
     // SUBMENU SHOP
