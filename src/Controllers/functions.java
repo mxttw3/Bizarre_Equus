@@ -127,8 +127,9 @@ public class functions {
             for (Animals objeto : cincoObjetos) {
                 System.out.println(objeto);
             }
-
+            
             StartRace();
+
             cincoObjetos.clear();
         }else{
             int n = animalList.size();
@@ -144,6 +145,7 @@ public class functions {
             }
 
             //TODO: Cojer caballo de tu lista
+            cincoObjetos.add(listAnimals(true, false));
             StartRace();
             cincoObjetos.clear();
         }
