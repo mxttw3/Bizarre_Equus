@@ -1,6 +1,10 @@
 package Models;
+import Controllers.*;
+import Utils.ReadUtilities;
 
 import java.time.LocalDate;
+
+import javax.swing.text.Utilities;
 
 public class Camels extends Animals implements interact {
     private String race;
@@ -25,9 +29,17 @@ public class Camels extends Animals implements interact {
     };
 
     @Override
-    public String eat() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eat'");
+    public void eat() {
+        
+        ReadUtilities.ReadIntMM("""
+        What do you want to feed your camel?
+        1.Hay
+        2.Carrots
+        3.Apples
+        """, 1, 3);
+        viewAscii();
+        System.out.println("Your camel is eating");
+
     }
 
     @Override

@@ -135,4 +135,8 @@ public abstract class Animals {
         Birth = birth;
     }
 
+    public void eat() {
+        
+    }
+
 }

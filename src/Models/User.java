@@ -30,7 +30,7 @@ public class User {
 
     public void moneyMaker() {
         if (this.Vdifficulty == difficulty.EASY_PEASY) {
-            this.money = 2000;
+            this.money = 300;
         } else if (this.Vdifficulty == difficulty.MEDIUM) {
             this.money = 200;
         } else if (this.Vdifficulty == difficulty.DEMON) {

@@ -25,7 +25,6 @@ public class functions {
 
     // añadir animales creados al arraylist
     public void createUser() throws InterruptedException {
-        
         Hgenerator.generateHorse(animalList);
         Cgenerator.generateCamel(animalList);
         Ggenerator.generateGreyhound(animalList);
@@ -52,7 +51,7 @@ public class functions {
                 |────────────────────────|
                 | You're a men o women   |
                 | 1.Men                  |
-                | 1.Women                |
+                | 2.Women                |
                 |────────────────────────|
                 """, 1, 2);
 
@@ -66,8 +65,8 @@ public class functions {
                 |────────────────────────────────|
                 |  What difficulty you choose :) |
                 | 1.Easy Peasy                   |
-                | 1.Medium                       |
-                | 1.Demon                        |
+                | 2.Medium                       |
+                | 3.Demon                        |
                 |────────────────────────────────|
                 """, 1, 3);
 
@@ -90,8 +89,8 @@ public class functions {
                     | 1.Bet        |
                     | 2.User info  |
                     | 3.Shop       |
-                    | 3.My animals |
-                    | 4.Exit       |
+                    | 4.My animals |
+                    | 5.Exit       |
                     |──────────────| 
                     """, 1, 5);
 
@@ -99,10 +98,28 @@ public class functions {
                 case 1 -> submenuBet();
                 case 2 -> currentUser.viewUserInfo();
                 case 3 -> submenuShop();
-                case 4 -> bucle = false;
+                case 4 -> myAnimals();
+                case 5 -> bucle = false;
             }
         }while(bucle);
     }
+    // MY animals
+    public void  myAnimals() {
+        int option = ReadUtilities.ReadIntMM("""
+                    |──────────────────────|
+                    | 1.List of my Animals |
+                    | 2.Play with them     |
+                    | 3.Give them food     |
+                    | 4.My animals         |
+                    | 5.Back               |
+                    |──────────────────────| 
+        """, 1, 5);
+        switch (option) {
+            case 1 -> listAnimals(true, false, true);
+            case 3-> listAnimals(true, false, true).eat();
+        }
+    }
+
 
     // SUBMENU BET
     public void submenuBet() {
