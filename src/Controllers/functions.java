@@ -23,7 +23,10 @@ public class functions {
     User currentUser = null;
     Random rand = new Random();
 
-    // añadir animales creados al arraylist
+    /**
+     * Este metodo se genera cuando se ejecuta el programa para configurar al usuario y darle la bienvenida
+     * @throws InterruptedException
+     */
     public void createUser() throws InterruptedException {
         Hgenerator.generateHorse(animalList);
         Cgenerator.generateCamel(animalList);
@@ -79,7 +82,8 @@ public class functions {
         currentUser = new User(name, lastName, age, Vgender, optionD);
     }
 
-    // MENU
+    
+    
     public void menu() {
         boolean bucle = true;
 
@@ -99,11 +103,12 @@ public class functions {
                 case 2 -> currentUser.viewUserInfo();
                 case 3 -> submenuShop();
                 case 4 -> myAnimals();
-                case 5 -> bucle = false;
+                case 5 -> System.exit(0);
             }
         }while(bucle);
     }
-    // MY animals
+    
+    
     public void  myAnimals() {
         int option = ReadUtilities.ReadIntMM("""
                     |──────────────────────|
@@ -121,7 +126,6 @@ public class functions {
     }
 
 
-    // SUBMENU BET
     public void submenuBet() {
         int option = ReadUtilities.ReadIntMM("""
             |─────────────────|
@@ -138,6 +142,10 @@ public class functions {
         }
     }
 
+    /**
+     * TODO:No se como funciona haz tu este java doc
+     * @param Vanials
+     */
     public void AnimalsForRace(boolean Vanials) {
         //TODO: poner animales en la carrera
         if (Vanials) {
@@ -281,6 +289,9 @@ public class functions {
 
     // Breeder where if you pay 500$ you can breed an animal that has 60% of being a
     // shit 30% of being normal 10% of being gigachad
+    /**
+     * Este metodo consiste en un criadero en el cual tienes dos opciones el animal normal o el Super animal este superanimal tiene mas posibilidades de salir uno mejor y basicamente usa varios random para coger entre un pocho, normal, chetado una vez a decidido entre uno de ellos se hace otro random para las skills que en funcion de primer random el valor minimo sera mayor o menor haciendo que sea mas facil que toque un numero alto.
+     */
     public void breeder(){
         int option=ReadUtilities.ReadIntMM("""
     |─────────────────────────────────────────|
@@ -401,11 +412,18 @@ public class functions {
     }
 
     // owned animal selector
+    /**
+     * Este metodo sirve para seleccionar un animal de la lista
+     * @param mine Con este parametro indicamos la metodo si queremos que se muestre una list de mis animales o de los animales que no son mios por ejemplo para la tienda  a comprar un animal llamariamos al metodo y pondriamos el parametro false para indicar que queremos seleccionar los animales que no son del usuario
+     * @param showPrice Con este parametro boolean indicamos al metodo si queremos mostrar o no el precio pro ejemplo a la hora de vender/comprar es importante mostrar el precio y por lo tanto este seria true
+     * @param buy Este metodo sirve para indicar si es para comprar o vender y segun su valor  el precio se dividira entre dos por ejemplo a la hora de vender un animal su precio es la mitad y el buy seria false 
+     * @return Este metodo devuelve un objeto de la clase animal que es el animal que se ha seleccionado
+     */
     public Animals listAnimals (boolean mine, boolean showPrice, boolean buy) {
         Scanner leer = new Scanner(System.in);
         Animals selected=null;
         do{
-        System.out.println("Select an animal from the list using its ID");
+        System.out.println("Select an animal from the list using its ID or type -1 to go back");
         for (Animals animal : animalList) {
             if(mine){
             if (animal.isMine()) {
@@ -419,49 +437,32 @@ public class functions {
                 }
             } 
         }
-        selected=animalList.get(ReadUtilities.ReadIntMM(null, 0 , animalList.size()));
-        return selected;
+        int id = ReadUtilities.ReadIntMM(null, -1 , animalList.size());
+        if (id==-1){
+            menu();
+        }else{
+            selected=animalList.get(id);
+        }
+        
+        if (mine) {
+            if (selected.isMine()){
+                return selected;
+            }else {
+                selected=null;
+                System.out.println("You selected an animal that wasnt on the list");
+            }
+        }else {
+            if (!selected.isMine()){
+                return selected;
+            }else {
+                selected=null;
+                System.out.println("You selected an animal that wasnt on the list");
+            }
+        }
     }while(selected==null);
+    return selected;
     }
 
-
-    // public String listAnimals (boolean mine, boolean showPrice) {
-    //     Scanner leer = new Scanner(System.in);
-    //     int numAnimals = 0;
-    //     String selected=null;
-    //     do{
-    //     System.out.println("Select an animal from the list");
-    //     for (Animals animal : animalList) {
-    //         if(mine){
-    //         if (animal.isMine()) {
-    //             animal.viewAnimalInfo(1, showPrice);
-    //         }
-    //         }else{
-    //             if (!animal.isMine()) {
-    //                 animal.viewAnimalInfo(1, showPrice);
-    //             }
-    //         } 
-    //     }
-        
-    //     selected = leer.next();
-    //     for (Animals animal : animalList) {
-    //         if(mine){
-    //         if (animal.getName().equals(selected) && animal.isMine()) {
-    //             return selected;
-    //         }
-    //         }else{
-    //             if (animal.getName().equals(selected) && !animal.isMine()) {
-    //                 return selected;
-    //             }
-    //         }
-    //     }
-    //     System.out.println("Animal not found with this name");
-    //     }while(selected!=null);
-    //     return null;
-    // }
- 
-
-    
 
 }
 
