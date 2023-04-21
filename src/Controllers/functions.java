@@ -10,14 +10,12 @@ import Utils.*;
 
 public class functions {
     ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
-    Horse juan = new Horse("juan",0,"black",null,"brown","green",true,1,5,10,true,"Tuabuela",100);
+    ArrayList<Animals> cincoObjetos = new ArrayList<Animals>();
 
-    Horse juan2 = new Horse("juan2",0,"black",null,"brown","green",false,1,5,10,false,"Tuabuela",100);
     User currentUser = null;
 
     // añadir animales creados al arraylist
     public void createUser() throws InterruptedException {
-        animalList.addAll(Arrays.asList(juan, juan2));
         HorseGenerator Hgenerator = new HorseGenerator();
         CamelGenerator Cgenerator = new CamelGenerator();
         GreyhoundGenerator Ggenerator = new GreyhoundGenerator();
@@ -109,21 +107,57 @@ public class functions {
 
                 """, 1, 3);
         switch (option) {
-            case 1 -> menu();
-            case 2 -> menu();//TODO: bet menu
+            case 1 -> AnimalsForRace(false);
+            case 2 -> AnimalsForRace(true);//TODO: bet menu
             case 3 -> menu();
         }
     }
 
-    public void AnimalsForRace() {
+    public void AnimalsForRace(boolean Vanials) {
         //TODO: poner animales en la carrera
-        
+        if (Vanials) {
+            int n = animalList.size();
+            for (int i = 0; i < 5; i++) {
+                int randomIndex = (int) (Math.random() * n);
+                cincoObjetos.add(animalList.get(randomIndex));
+            }
+            
+            // Imprime los 5 objetos aleatorios
+            System.out.println("Los 5 objetos aleatorios son:");
+            for (Animals objeto : cincoObjetos) {
+                System.out.println(objeto);
+            }
+
+            StartRace();
+            cincoObjetos.clear();
+        }else{
+            int n = animalList.size();
+            for (int i = 0; i < 4; i++) {
+                int randomIndex = (int) (Math.random() * n);
+                cincoObjetos.add(animalList.get(randomIndex));
+            }
+            
+            // Imprime los 5 objetos aleatorios
+            System.out.println("Los 5 objetos aleatorios son:");
+            for (Animals objeto : cincoObjetos) {
+                System.out.println(objeto);
+            }
+
+            //TODO: Cojer caballo de tu lista
+            StartRace();
+            cincoObjetos.clear();
+        }
     }
 
     public void StartRace() {
         //TODO: EmpezarCarrera
+        Animals[][] RaceBoard = new Animals[5][8];
         
+        for (int i = 0; i < cincoObjetos.size(); i++) {
+            RaceBoard[i][0] = cincoObjetos.get(i);
+        }
 
+        
     }
 
     // SUBMENU SHOP
