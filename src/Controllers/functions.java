@@ -138,6 +138,7 @@ public class functions {
             for (Animals objeto : cincoObjetos) {
                 System.out.println(objeto);
             }
+            
 
             //TODO: Cojer caballo de tu lista
             StartRace();
@@ -148,7 +149,7 @@ public class functions {
     public void StartRace() {
         //TODO: EmpezarCarrera
         Animals[][] RaceBoard = new Animals[5][8];
-        
+
         for (int i = 0; i < cincoObjetos.size(); i++) {
             RaceBoard[i][0] = cincoObjetos.get(i);
         }
