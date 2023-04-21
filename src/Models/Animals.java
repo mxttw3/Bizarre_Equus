@@ -49,6 +49,10 @@ public abstract class Animals {
         return name;
     }
 
+    public void viewAscii() {
+        System.out.println("-- ANIMAL --");
+    }
+
     public void viewAnimalInfo(String type, boolean showPrice) {
         if(type == "Models.Horse"){
         System.out.println("""
@@ -60,17 +64,31 @@ public abstract class Animals {
                    `   \\     \\""");
         
     }else if (type=="Models.Greyhound"){
-        System.out.println("""
-
-                """);
+        System.out.println("""            
+            /)-_-(\\
+             (o o)
+     .-----__/\\o/
+    /  __      /
+\\__/\\ /  \\_\\ |/
+     \\\\     ||
+     //     ||
+     |\\     |\\""");
     }else if (type=="Models.Camels") {
-        System.out.println("""
-
-                """);
+        System.out.println("""            
+            //
+          _oo\\
+         (__/ \\  _  _
+            \\  \\/ \\/ \\
+            (         )\\
+             \\_______/  \\
+              [[] [[]
+              [[] [[]""");
     }else if (type=="Models.Wolf") {
-        System.out.println("""
-            
-                """);
+            System.out.println("""            
+                                  /^._
+                    ,___,--~~~~--' /'~
+                    `~--~\\ )___,)/'
+                        (/\\\\_  (/\\\\_""");
     }
     System.out.print("Name: " + this.name + " Birth: " + this.Birth + " Speed: " + this.speed + " Endurance: "
                 + this.endurance + " Agility: " + this.agility);
@@ -97,6 +115,18 @@ public abstract class Animals {
 
     public int getAgility() {
         return agility;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setEndurance(int endurance) {
+        this.endurance = endurance;
+    }
+
+    public void setAgility(int agility) {
+        this.agility = agility;
     }
 
 }

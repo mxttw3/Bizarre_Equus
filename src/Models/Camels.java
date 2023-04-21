@@ -12,6 +12,19 @@ public class Camels extends Animals implements interact {
     }
 
     @Override
+    public void viewAscii() {
+        System.out.print("""            
+            //
+          _oo\\
+         (__/ \\  _  _
+            \\  \\/ \\/ \\
+            (         )\\
+             \\_______/  \\
+              [[] [[]
+              [[] [[]""");
+    };
+
+    @Override
     public String eat() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'eat'");

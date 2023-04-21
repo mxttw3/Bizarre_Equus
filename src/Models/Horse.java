@@ -16,6 +16,17 @@ public class Horse extends Animals implements interact {
     }
 
     @Override
+    public void viewAscii() {
+        System.out.print("""
+                            .''
+                  ._.-.___.' (`\\
+                 //(        ( `'
+                '/ )\\ ).__. )\s
+                ' <' `\\ ._/'\\
+                   `   \\     \\""");
+    };
+
+    @Override
     public String eat() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'eat'");

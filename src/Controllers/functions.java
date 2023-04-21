@@ -3,6 +3,7 @@ import Models.*;
 import Generators.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -13,17 +14,20 @@ import Utils.*;
 public class functions {
     ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
     ArrayList<Animals> cincoObjetos = new ArrayList<Animals>();
-
+    HorseGenerator Hgenerator = new HorseGenerator();
+    CamelGenerator Cgenerator = new CamelGenerator();
+    GreyhoundGenerator Ggenerator = new GreyhoundGenerator(); 
+    WolfGenerator Wgenerator = new WolfGenerator();
     User currentUser = null;
+    Random rand = new Random();
 
     // añadir animales creados al arraylist
     public void createUser() throws InterruptedException {
-        HorseGenerator Hgenerator = new HorseGenerator();
-        CamelGenerator Cgenerator = new CamelGenerator();
-        GreyhoundGenerator Ggenerator = new GreyhoundGenerator();
+        
         Hgenerator.generateHorse(animalList);
         Cgenerator.generateCamel(animalList);
         Ggenerator.generateGreyhound(animalList);
+        Wgenerator.generateWolf(animalList);
 
         System.out.println("Wellcome to Bizarre Races!!!!");
         Thread.sleep(2000);
@@ -127,11 +131,10 @@ public class functions {
             // Imprime los 5 objetos aleatorios
             System.out.println("Los 5 objetos aleatorios son:");
             for (Animals objeto : cincoObjetos) {
-                System.out.println(objeto);
+                objeto.viewAscii();
             }
             
             StartRace();
-
             cincoObjetos.clear();
         }else{
             int n = animalList.size();
@@ -176,7 +179,8 @@ public class functions {
             // Crear probabilidad de pasar a la siguiente casilla del tablero
             for (int i = 0; i < cincoObjetos.size(); i++) {
                 do{
-                RandomSkills[i] =  ((int)Math.random() * VectorSkills[i]);
+                    RandomSkills[i] = (int)(Math.random() * VectorSkills[i]);
+                    System.out.println(VectorSkills[i]);
                 }while(RandomSkills[i] == 0);
             };
 
@@ -191,19 +195,27 @@ public class functions {
             // Mover el animal ganador
             for (int fila = 0; fila < RaceBoard.length; fila++) {
                 for (int columna = 0; columna < RaceBoard[fila].length; columna++) {
-                    // Si el elemento actual del arreglo es igual al objeto que estás buscando,
-                    // entonces el objeto está en esta posición del arreglo.
+
                     if (RaceBoard[fila][columna] == cincoObjetos.get(MaxPosition)) {                            
                         Vcolumn = columna;
                         break; // Terminar la búsqueda una vez que se ha encontrado el objeto.
                     }
                 }
             }
-            
+
             Vcolumn = Vcolumn + 1;
             RaceBoard[MaxPosition][Vcolumn] = cincoObjetos.get(MaxPosition);
             RaceBoard[MaxPosition][Vcolumn - 1] = null;
 
+            for(int i = 0; i < RaceBoard.length; i++) {
+                for(int j = 0; j < RaceBoard[i].length; j++) {
+                    if (RaceBoard[i][j] == null) {
+                        System.out.print("             ");
+                    }else{
+                    RaceBoard[i][j].viewAscii();}
+                }
+                System.out.println();
+            }
         }while (true);
     }
 
@@ -263,21 +275,109 @@ public class functions {
         switch (option) {
             case 1 -> { if (currentUser.getMoney()>500){
                 currentUser.setMoney(currentUser.getMoney()-500);
-                Animals animal1= listAnimals(true, false);
-                Animals animal2= listAnimals(true, false);
+                String[] type = {"Wolf","Horse","Greyhound","Camels"};
+                String animtoGen=type[rand.nextInt(type.length)];
+                if (animtoGen=="Wolf"){
+                    Wgenerator.generateWolf(animalList);
+                }else if (animtoGen=="Horse") {
+                    Hgenerator.generateHorse(animalList);
+                }else if (animtoGen=="Greyhound") {
+                    Ggenerator.generateGreyhound(animalList);
+                }else if (animtoGen=="Camels") {
+                    Cgenerator.generateCamel(animalList);
+                }
+                    int numeroAleatorio = rand.nextInt(10);
+                    int last = animalList.size()-1;
+                    animalList.get(last).setMine(true);
+                    if(numeroAleatorio > 0 && numeroAleatorio < 6){
+                        int skillsAleatorio = rand.nextInt(30);
+                        animalList.get(last).setSpeed(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(30);
+                        animalList.get(last).setEndurance(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(30);
+                        animalList.get(last).setAgility(skillsAleatorio);
+                    }else if(numeroAleatorio > 5 && numeroAleatorio < 9) {
+                        int skillsAleatorio = rand.nextInt(30)+30;
+                        animalList.get(last).setSpeed(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(30)+30;
+                        animalList.get(last).setEndurance(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(30)+30;
+                        animalList.get(last).setAgility(skillsAleatorio);
+                    }else {
+                        int skillsAleatorio = rand.nextInt(41)+60;
+                        animalList.get(last).setSpeed(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(41)+60;
+                        animalList.get(last).setEndurance(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(41)+60;
+                        animalList.get(last).setAgility(skillsAleatorio);
+                    }
+                    // pocho 6 numeros = 1-30
+                    // medio 3 numeros = 30-60
+                    // gigachad 1 numero = 60-100
+                    
+
             }else {
                 System.out.println("You dont have enought money");
             } 
             }
             case 2 -> { if (currentUser.getMoney()>1000){
                 currentUser.setMoney(currentUser.getMoney()-1000);
+                String[] type = {"Wolf","Horse","Greyhound","Camels"};
+                String animtoGen=type[rand.nextInt(type.length)];
+                if (animtoGen=="Wolf"){
+                    Wgenerator.generateWolf(animalList);
+                }else if (animtoGen=="Horse") {
+                    Hgenerator.generateHorse(animalList);
+                }else if (animtoGen=="Greyhound") {
+                    Ggenerator.generateGreyhound(animalList);
+                }else if (animtoGen=="Camels") {
+                    Cgenerator.generateCamel(animalList);
+                }
+                    int numeroAleatorio = rand.nextInt(10);
+                    int last = animalList.size()-1;
+                    animalList.get(last).setMine(true);
+                    if(numeroAleatorio > 0 && numeroAleatorio < 6){
+                        int skillsAleatorio = rand.nextInt(41)+60;
+                        animalList.get(last).setSpeed(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(41)+60;
+                        animalList.get(last).setEndurance(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(41)+60;
+                        animalList.get(last).setAgility(skillsAleatorio);
+                    }else if(numeroAleatorio > 5 && numeroAleatorio < 9) {
+                        int skillsAleatorio = rand.nextInt(30)+30;
+                        animalList.get(last).setSpeed(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(30)+30;
+                        animalList.get(last).setEndurance(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(30)+30;
+                        animalList.get(last).setAgility(skillsAleatorio);
+                    }else {
+                        int skillsAleatorio = rand.nextInt(30);
+                        animalList.get(last).setSpeed(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(30);
+                        animalList.get(last).setEndurance(skillsAleatorio);
+
+                        skillsAleatorio = rand.nextInt(30);
+                        animalList.get(last).setAgility(skillsAleatorio);
+                    }
+                    animalList.get(last).setPrice((animalList.get(last).getSpeed() + animalList.get(last).getEndurance() + animalList.get(last).getAgility())*8);
             }else {
                 System.out.println("You dont have enought money");
             } 
             }
             case 3 -> submenuShop();
         }
-        // TODO: Breed animals
+
     }
 
     // owned animal selector
