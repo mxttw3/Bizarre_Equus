@@ -1,13 +1,13 @@
-package Models;
+package Generators;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Random;
-import Models.Horse;
+import Models.*;
 
-public class GreyhoundGenerator {
+public class WolfGenerator {
     private Random rand = new Random();
 
-    public ArrayList generateGreyhound(ArrayList animalList) {
+    public ArrayList generateWolf(ArrayList animalList) {
         for (int i = 0; i < 30; i++) {
 
             String name = generateRandomName();
@@ -22,9 +22,10 @@ public class GreyhoundGenerator {
             int agility = rand.nextInt(100) + 1;
             boolean isMine = false;
             int price = generatePrice(speed, endurance, agility);
-            Greyhound greyhounds = new Greyhound(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance,
-                    agility, isMine, price);
-            animalList.add(greyhounds);
+            String race = generateRandomRace();
+            Wolf wolfs = new Wolf(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance,
+                    agility, isMine, price, race);
+            animalList.add(wolfs);
         }
         return animalList;
     }
@@ -35,10 +36,10 @@ public class GreyhoundGenerator {
     }
 
     private String generateRandomName() {
-        String[] names = {"Arrow", "Bolt", "Chase", "Flash", "Fleet", "Gunner", "Jet", "Lightning", 
-            "Miles", "Nitro", "Pacer", "Pippin", "Quick", "Racer", "Rocket", "Speedy", 
-            "Sprinter", "Swift", "Turbo", "Velocity", "Whirl", "Zoom", "Zephyr", "Ace", 
-            "Blaze", "Cheetah", "Dart", "Dash", "Hunter", "Jaguar", "Raptor", "Thunder"};
+        String[] names = {"Luna", "Shadow", "Wolf", "Thunder", "Midnight", "Storm", "Spirit", "Fang", 
+            "Blaze", "Echo", "Raven", "Hunter", "Nova", "Mystic", "Sable", "Soul", 
+            "Scar", "Rogue", "Ash", "River", "Rune", "Tundra", "Talon", "Winter", 
+            "Zephyr", "Zeus", "Vixen", "Orion", "Nyx", "Koda", "Jax", "Ivy"};
         return names[rand.nextInt(names.length)];
     }
     
@@ -70,6 +71,16 @@ public class GreyhoundGenerator {
         String[] eyeColors = { "brown", "blue", "green", "gray" };
         return eyeColors[rand.nextInt(eyeColors.length)];
     }
+
+    private String generateRandomRace() {
+        String[] races = {"North American Gray Wolf", "Alaskan Gray Wolf", "Canadian Gray Wolf", 
+            "Rocky Mountain Gray Wolf", "Mexican Gray Wolf", "Arizona and New Mexico Gray Wolf", 
+            "Texas Gray Wolf", "Wisconsin Gray Wolf", "Vancouver Island Gray Wolf", 
+            "Iberian Wolf", "Eastern Siberian Wolf", "Indian Wolf", "Ethiopian Wolf", 
+            "Arabian Wolf", "Tibetan Wolf", "Hokkaido Wolf", "Alpine Wolf"};
+        return races[rand.nextInt(races.length)];
+    }
+    
 
     
 

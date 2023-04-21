@@ -1,13 +1,13 @@
-package Models;
+package Generators;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Random;
 import Models.Horse;
 
-public class WolfGenerator {
-    private Random rand = new Random();
+public class HorseGenerator {
+    private final Random rand = new Random();
 
-    public ArrayList generateWolf(ArrayList animalList) {
+    public ArrayList generateHorse(ArrayList animalList) {
         for (int i = 0; i < 30; i++) {
 
             String name = generateRandomName();
@@ -21,11 +21,11 @@ public class WolfGenerator {
             int endurance = rand.nextInt(100) + 1;
             int agility = rand.nextInt(100) + 1;
             boolean isMine = false;
-            int price = generatePrice(speed, endurance, agility);
             String race = generateRandomRace();
-            Wolf wolfs = new Wolf(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance,
-                    agility, isMine, price, race);
-            animalList.add(wolfs);
+            int price = generatePrice(speed, endurance, agility);
+            Horse horseName = new Horse(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance,
+                    agility, isMine, race, price);
+            animalList.add(horseName);
         }
         return animalList;
     }
@@ -36,17 +36,17 @@ public class WolfGenerator {
     }
 
     private String generateRandomName() {
-        String[] names = {"Luna", "Shadow", "Wolf", "Thunder", "Midnight", "Storm", "Spirit", "Fang", 
-            "Blaze", "Echo", "Raven", "Hunter", "Nova", "Mystic", "Sable", "Soul", 
-            "Scar", "Rogue", "Ash", "River", "Rune", "Tundra", "Talon", "Winter", 
-            "Zephyr", "Zeus", "Vixen", "Orion", "Nyx", "Koda", "Jax", "Ivy"};
+        String[] names = { "Thunderbolt", "Midnight", "Blaze", "Spirit", "Wildfire", "Majesty", "Stormy",
+                "Comet", "Pegasus", "Dancer", "Freedom", "Knight", "Galaxy", "Phoenix",
+                "Mystique", "Sundance", "Sable", "Bandit", "Willow", "Lucky", "Rainbow",
+                "Whisper", "Apollo", "Jupiter", "Neptune", "Orion", "Titan", "Venus",
+                "Amber", "Cinnamon", "Cocoa", "Dusty", "Ebony", "Ginger", "Honey",
+                "Maple", "Pumpkin", "Saffron", "Sienna", "Tawny", "Topaz" };
         return names[rand.nextInt(names.length)];
     }
-    
-    
 
     private String generateRandomColor() {
-        String[] colors = { "beige", "brown", "black", "gray", "white" };
+        String[] colors = { "black", "brown", "white", "gray" };
         return colors[rand.nextInt(colors.length)];
     }
 
@@ -73,15 +73,9 @@ public class WolfGenerator {
     }
 
     private String generateRandomRace() {
-        String[] races = {"North American Gray Wolf", "Alaskan Gray Wolf", "Canadian Gray Wolf", 
-            "Rocky Mountain Gray Wolf", "Mexican Gray Wolf", "Arizona and New Mexico Gray Wolf", 
-            "Texas Gray Wolf", "Wisconsin Gray Wolf", "Vancouver Island Gray Wolf", 
-            "Iberian Wolf", "Eastern Siberian Wolf", "Indian Wolf", "Ethiopian Wolf", 
-            "Arabian Wolf", "Tibetan Wolf", "Hokkaido Wolf", "Alpine Wolf"};
+        String[] races = { "Thoroughbred", "Quarter Horse", "Arabian", "Paint Horse", "Appaloosa", "Warmblood",
+                "Morgan", "Mustang", "Andalusian", "Friesian", "Haflinger", "Tennessee Walking Horse", };
         return races[rand.nextInt(races.length)];
     }
-    
-
-    
 
 }

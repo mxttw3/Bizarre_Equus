@@ -1,14 +1,13 @@
-package Models;
+package Generators;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Random;
-import Models.Horse;
+import Models.*;
 
-public class CamelGenerator {
-
+public class GreyhoundGenerator {
     private Random rand = new Random();
 
-    public ArrayList generateCamel(ArrayList animalList) {
+    public ArrayList generateGreyhound(ArrayList animalList) {
         for (int i = 0; i < 30; i++) {
 
             String name = generateRandomName();
@@ -22,11 +21,10 @@ public class CamelGenerator {
             int endurance = rand.nextInt(100) + 1;
             int agility = rand.nextInt(100) + 1;
             boolean isMine = false;
-            String race = generateRandomRace();
             int price = generatePrice(speed, endurance, agility);
-            Camels camel = new Camels(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance,
-                    agility, isMine, price, race);
-            animalList.add(camel);
+            Greyhound greyhounds = new Greyhound(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance,
+                    agility, isMine, price);
+            animalList.add(greyhounds);
         }
         return animalList;
     }
@@ -37,12 +35,13 @@ public class CamelGenerator {
     }
 
     private String generateRandomName() {
-        String[] names = {"Amir", "Zara", "Aswan", "Sahara", "Abdullah", "Zahara", "Arabian", "Nefertiti", 
-            "Cairo", "Sahar", "Horus", "Osiris", "Sphinx", "Bastet", "Anubis", "Ramses", 
-            "Kamal", "Layla", "Ali", "Fatima", "Jasmine", "Mustafa", "Nadir", "Noor", 
-            "Omar", "Hassan", "Amina", "Salim", "Samar", "Sana", "Sultan", "Yasmin"};
+        String[] names = {"Arrow", "Bolt", "Chase", "Flash", "Fleet", "Gunner", "Jet", "Lightning", 
+            "Miles", "Nitro", "Pacer", "Pippin", "Quick", "Racer", "Rocket", "Speedy", 
+            "Sprinter", "Swift", "Turbo", "Velocity", "Whirl", "Zoom", "Zephyr", "Ace", 
+            "Blaze", "Cheetah", "Dart", "Dash", "Hunter", "Jaguar", "Raptor", "Thunder"};
         return names[rand.nextInt(names.length)];
     }
+    
     
 
     private String generateRandomColor() {
@@ -71,13 +70,7 @@ public class CamelGenerator {
         String[] eyeColors = { "brown", "blue", "green", "gray" };
         return eyeColors[rand.nextInt(eyeColors.length)];
     }
-    private String generateRandomRace() {
-        String[] races = {"Dromedary", "Bactrian", "Arabian Camel", "Nubian Camel", "Somali Camel", 
-            "Gobi Camel", "Mongolian Camel", "Indian Camel", "Chinese Camel", "Wild Bactrian Camel", 
-            "South American Camel", "Australian Feral Camel"};
-        return races[rand.nextInt(races.length)];
-    }
+
     
 
 }
-

@@ -1,8 +1,10 @@
 package Controllers;
 import Models.*;
+import Generators.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
 
 
 import ENUMS.difficulty;
@@ -155,10 +157,25 @@ public class functions {
     public void StartRace() {
         //TODO: EmpezarCarrera
         Animals[][] RaceBoard = new Animals[5][8];
+        int[] VectorSkills = new int[5]; // Vector con las skills del animal
+        int[] RandomSkills= new int[5]; // crea un vector de longitud 5
+
 
         for (int i = 0; i < cincoObjetos.size(); i++) {
             RaceBoard[i][0] = cincoObjetos.get(i);
         }
+
+        for (int i = 0; i < cincoObjetos.size(); i++) {
+            VectorSkills[i] = ((cincoObjetos.get(i).getSpeed() * 40) + (cincoObjetos.get(i).getAgility() * 30) + (cincoObjetos.get(i).getEndurance()* 30))/100;
+        }
+
+        for (int i = 0; i < cincoObjetos.size(); i++) {
+            RandomSkills[i] =  ((int)Math.random() * VectorSkills[i]);
+            
+        }
+;
+        
+
 
         
     }
@@ -245,12 +262,13 @@ public class functions {
         for (Animals animal : animalList) {
             if(mine){
             if (animal.isMine()) {
-                animal.viewAnimalInfo(1, showPrice);
+
+                animal.viewAnimalInfo(animal.getClass().getName(), showPrice);
                 System.out.println("ID:"+ animalList.indexOf(animal));
             }
             }else{
                 if (!animal.isMine()) {
-                    animal.viewAnimalInfo(1, showPrice);
+                    animal.viewAnimalInfo(animal.getClass().getName(), showPrice);
                     System.out.println("ID:"+ animalList.indexOf(animal));
                 }
             } 
