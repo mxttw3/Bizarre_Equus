@@ -256,7 +256,7 @@ public class functions {
         System.out.println("Welcome to the shop!!");
         System.out.println("Here you have a list of your animals:");
         Animals selected = listAnimals(true, true, false);
-            currentUser.setMoney(currentUser.getMoney() + selected.getPrice());
+            currentUser.setMoney(currentUser.getMoney() + selected.getPrice()/2);
             selected.setMine(false);
             System.out.println("You have sold " + selected.getName()); 
     };
