@@ -24,7 +24,6 @@ public class Wolf extends Animals implements interact {
                     (/\\\\_  (/\\\\_
                     """);
     };
-
     @Override
     public void eat() {
         int option = ReadUtilities.ReadIntMM("""

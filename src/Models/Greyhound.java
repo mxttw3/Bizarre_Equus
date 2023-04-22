@@ -10,7 +10,6 @@ public class Greyhound extends Animals implements interact {
     public Greyhound(String name, int raceNumber, String color, LocalDate birth, String hair, String eyeColor,
             boolean gender, int speed, int endurance, int agility, boolean isMine, int price) {
         super(name, raceNumber, color, birth, hair, eyeColor, gender, speed, endurance, agility, isMine, price);
-        //TODO Auto-generated constructor stub
     }
 
     @Override

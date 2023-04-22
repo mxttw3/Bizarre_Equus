@@ -26,7 +26,7 @@ public class functions {
      * Este metodo se genera cuando se ejecuta el programa para configurar al
      * usuario y darle la bienvenida
      * 
-     * @throws InterruptedException
+     * @throws InterruptedException Esto añade un delay inicial
      */
     public void createUser() throws InterruptedException {
         Hgenerator.generateHorse(animalList);
