@@ -2,6 +2,7 @@ package Models;
 import Controllers.*;
 import Utils.ReadUtilities;
 
+import java.lang.foreign.Addressable;
 import java.time.LocalDate;
 
 import javax.swing.text.Utilities;
@@ -44,14 +45,16 @@ public class Camels extends Animals implements interact {
 
     @Override
     public void play() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'play'");
+        viewAscii();
+        System.out.println("What do you plan to play with your camel?");
+        System.out.println("Its not a dog");
+        functions m = new functions();
+        m.myAnimals();
     }
 
     @Override
     public void patpat() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'patpat'");
+        System.out.println("You pat your camel");
     }
     
 }

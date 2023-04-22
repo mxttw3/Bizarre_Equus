@@ -45,8 +45,7 @@ public class Wolf extends Animals implements interact {
 
     @Override
     public void play() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'play'");
+        System.out.println("You cant play with a wolf. Do you want to die?");
     }
 
     @Override
@@ -59,6 +58,7 @@ public class Wolf extends Animals implements interact {
                     3.Belly
                     4. Go back
                 """, 1, 4);
+                viewAscii();
         switch (opcion) {
             case 1, 2, 3 -> {
 

@@ -1,10 +1,9 @@
 package Models;
 import java.time.LocalDate;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Random;
+import Controllers.functions;
 import Utils.*;
-
 import Models.*;
 
 public class Horse extends Animals implements interact {
@@ -43,15 +42,31 @@ public class Horse extends Animals implements interact {
 
 
     @Override
-    public void play() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'play'");
+    public void play() throws InterruptedException {
+        do {
+        Random rand = new Random();
+        functions m = new functions();
+        int opcion = ReadUtilities.ReadIntMM("""
+        Do you want to throw the ball?
+        1.Yes
+        2.No    
+        """, 1, 2);
+        viewAscii();
+        if (opcion == 2){
+            m.myAnimals();
+        }else {
+            System.out.println(" Is going to catch the ball...");
+            int time = rand.nextInt(4000)+1000;
+            Thread.sleep(time);
+            System.out.println("He returned with the ball");
+        }
+    }while(1==1);
     }
 
     @Override
     public void patpat() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'patpat'");
+        viewAscii();
+        System.out.println("You pat your horse");
     }
 
 

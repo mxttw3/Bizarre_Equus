@@ -3,7 +3,6 @@ package Models;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.time.LocalDate;
-
 public abstract class Animals {
     private static int recuento = 0; // TODO: Ver en ingles
     private final int legs = 4;
@@ -36,7 +35,6 @@ public abstract class Animals {
         this.isMine = isMine;
         this.price = price;
     }
-
     public void setMine(boolean isMine) {
         this.isMine = isMine;
     }

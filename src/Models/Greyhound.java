@@ -37,6 +37,7 @@ public class Greyhound extends Animals implements interact {
         1.Yes
         2.No    
         """, 1, 2);
+        viewAscii();
         if (opcion == 2){
             m.myAnimals();
         }else {

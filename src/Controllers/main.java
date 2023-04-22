@@ -7,6 +7,5 @@ public class main {
         functions m = new functions();
         m.createUser();
         m.menu();
-
     }
 }

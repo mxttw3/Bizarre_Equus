@@ -1,4 +1,5 @@
 package Controllers;
+
 import Models.*;
 import Generators.*;
 
@@ -8,24 +9,24 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-
-
 import ENUMS.difficulty;
 import Utils.*;
 
 public class functions {
-    ArrayList<Animals> animalList = new ArrayList<Animals>();    // |─
+    ArrayList<Animals> animalList = new ArrayList<Animals>(); // |─
     ArrayList<Animals> cincoObjetos = new ArrayList<Animals>();
     HorseGenerator Hgenerator = new HorseGenerator();
     CamelGenerator Cgenerator = new CamelGenerator();
-    GreyhoundGenerator Ggenerator = new GreyhoundGenerator(); 
+    GreyhoundGenerator Ggenerator = new GreyhoundGenerator();
     WolfGenerator Wgenerator = new WolfGenerator();
     User currentUser = null;
     Random rand = new Random();
 
     /**
-     * Este metodo se genera cuando se ejecuta el programa para configurar al usuario y darle la bienvenida
-     * @throws InterruptedException 
+     * Este metodo se genera cuando se ejecuta el programa para configurar al
+     * usuario y darle la bienvenida
+     * 
+     * @throws InterruptedException
      */
     public void createUser() throws InterruptedException {
         Hgenerator.generateHorse(animalList);
@@ -58,10 +59,10 @@ public class functions {
                 |────────────────────────|
                 """, 1, 2);
 
-        boolean Vgender = true;         
+        boolean Vgender = true;
         if (gender == 1) {
             Vgender = true;
-        }else{
+        } else {
             Vgender = false;
         }
         int Vdifficulty = ReadUtilities.ReadIntMM("""
@@ -82,12 +83,10 @@ public class functions {
         currentUser = new User(name, lastName, age, Vgender, optionD);
     }
 
-    
-    
     public void menu() {
         boolean bucle = true;
 
-        do{
+        do {
             int option = ReadUtilities.ReadIntMM("""
                     |──────────────|
                     | 1.Bet        |
@@ -95,7 +94,7 @@ public class functions {
                     | 3.Shop       |
                     | 4.My animals |
                     | 5.Exit       |
-                    |──────────────| 
+                    |──────────────|
                     """, 1, 5);
 
             switch (option) {
@@ -105,111 +104,111 @@ public class functions {
                 case 4 -> myAnimals();
                 case 5 -> System.exit(0);
             }
-        }while(bucle);
+        } while (bucle);
     }
-    
-    
-    public void  myAnimals() {
+
+    public void myAnimals() {
         int option = ReadUtilities.ReadIntMM("""
-                    |──────────────────────|
-                    | 1.List of my Animals |
-                    | 2.Play with them     |
-                    | 3.Give them food     |
-                    | 4.My animals         |
-                    | 5.Back               |
-                    |──────────────────────| 
-        """, 1, 5);
+                            |──────────────────────|
+                            | 1.List of my Animals |
+                            | 2.Play with them     |
+                            | 3.Give them food     |
+                            | 4.My animals         |
+                            | 5.Back               |
+                            |──────────────────────|
+                """, 1, 5);
         switch (option) {
             case 1 -> listAnimals(true, false, true);
-            case 3-> listAnimals(true, false, true).eat();
+            case 3 -> listAnimals(true, false, true).eat();
         }
     }
 
-
     public void submenuBet() {
         int option = ReadUtilities.ReadIntMM("""
-            |─────────────────|
-            | 1.Put my animal |
-            | 2.Start         |   
-            | 3.Back          |
-            |─────────────────|
+                |─────────────────|
+                | 1.Put my animal |
+                | 2.Start         |
+                | 3.Back          |
+                |─────────────────|
 
-                """, 1, 3);
+                    """, 1, 3);
         switch (option) {
             case 1 -> AnimalsForRace(false);
-            case 2 -> AnimalsForRace(true);//TODO: bet menu
+            case 2 -> AnimalsForRace(true);// TODO: bet menu
             case 3 -> menu();
         }
     }
 
     /**
      * TODO:No se como funciona haz tu este java doc
+     * 
      * @param Vanials
      */
     public void AnimalsForRace(boolean Vanials) {
-        //TODO: poner animales en la carrera
+        // TODO: poner animales en la carrera
         if (Vanials) {
             int n = animalList.size();
             for (int i = 0; i < 5; i++) {
                 int randomIndex = (int) (Math.random() * n);
                 cincoObjetos.add(animalList.get(randomIndex));
             }
-            
+
             // Imprime los 5 objetos aleatorios
             System.out.println("Los 5 objetos aleatorios son:");
             for (Animals objeto : cincoObjetos) {
                 objeto.viewAscii();
             }
-            
+
             StartRace();
             cincoObjetos.clear();
-        }else{
+        } else {
             int n = animalList.size();
             for (int i = 0; i < 4; i++) {
                 int randomIndex = (int) (Math.random() * n);
                 cincoObjetos.add(animalList.get(randomIndex));
             }
-            
+
             // Imprime los 5 objetos aleatorios
             System.out.println("Los 5 objetos aleatorios son:");
             for (Animals objeto : cincoObjetos) {
                 System.out.println(objeto);
             }
-            
 
-            //TODO: Cojer caballo de tu lista
-            cincoObjetos.add(listAnimals(true, false,true));
+            // TODO: Cojer caballo de tu lista
+            cincoObjetos.add(listAnimals(true, false, true));
             StartRace();
             cincoObjetos.clear();
         }
     }
 
     public void StartRace() {
-        //TODO: EmpezarCarrera
+        // TODO: EmpezarCarrera
         Animals[][] RaceBoard = new Animals[5][8];
         int[] VectorSkills = new int[5]; // Vector con las skills del animal
-        int[] RandomSkills= new int[5]; // crea un vector de longitud 5
-
+        int[] RandomSkills = new int[5]; // crea un vector de longitud 5
 
         for (int i = 0; i < cincoObjetos.size(); i++) {
             RaceBoard[i][0] = cincoObjetos.get(i);
-        };
+        }
+        ;
 
-
-        //Calcular las skills de los animales
+        // Calcular las skills de los animales
         for (int i = 0; i < cincoObjetos.size(); i++) {
-            VectorSkills[i] = ((cincoObjetos.get(i).getSpeed() * 40) + (cincoObjetos.get(i).getAgility() * 30) + (cincoObjetos.get(i).getEndurance()* 30))/100;
-        };
+            VectorSkills[i] = ((cincoObjetos.get(i).getSpeed() * 40) + (cincoObjetos.get(i).getAgility() * 30)
+                    + (cincoObjetos.get(i).getEndurance() * 30)) / 100;
+        }
+        ;
 
-        do{
+        do {
             int max = 0, MaxPosition = 0, Vcolumn = 0;
             // Crear probabilidad de pasar a la siguiente casilla del tablero
             for (int i = 0; i < cincoObjetos.size(); i++) {
-                do{
-                    RandomSkills[i] = (int)(Math.random() * VectorSkills[i]);
+                do {
+                    RandomSkills[i] = (int) (Math.random() * VectorSkills[i]);
                     System.out.println(VectorSkills[i]);
-                }while(RandomSkills[i] == 0);
-            };
+                } while (RandomSkills[i] == 0);
+            }
+            ;
 
             // Buscar numero ganador para moverlo
             for (int i = 0; i < RandomSkills.length; i++) {
@@ -223,7 +222,7 @@ public class functions {
             for (int fila = 0; fila < RaceBoard.length; fila++) {
                 for (int columna = 0; columna < RaceBoard[fila].length; columna++) {
 
-                    if (RaceBoard[fila][columna] == cincoObjetos.get(MaxPosition)) {                            
+                    if (RaceBoard[fila][columna] == cincoObjetos.get(MaxPosition)) {
                         Vcolumn = columna;
                         break; // Terminar la búsqueda una vez que se ha encontrado el objeto.
                     }
@@ -234,28 +233,29 @@ public class functions {
             RaceBoard[MaxPosition][Vcolumn] = cincoObjetos.get(MaxPosition);
             RaceBoard[MaxPosition][Vcolumn - 1] = null;
 
-            for(int i = 0; i < RaceBoard.length; i++) {
-                for(int j = 0; j < RaceBoard[i].length; j++) {
+            for (int i = 0; i < RaceBoard.length; i++) {
+                for (int j = 0; j < RaceBoard[i].length; j++) {
                     if (RaceBoard[i][j] == null) {
                         System.out.print("             ");
-                    }else{
-                    RaceBoard[i][j].viewAscii();}
+                    } else {
+                        RaceBoard[i][j].viewAscii();
+                    }
                 }
                 System.out.println();
             }
-        }while (true);
+        } while (true);
     }
 
     // SUBMENU SHOP
     public void submenuShop() {
         int option = ReadUtilities.ReadIntMM("""
-            |─────────|
-            | 1.Buy   |
-            | 2.Sell  |
-            | 3.Breed |
-            | 4.Back  |
-            |─────────|
-                """, 1, 4);
+                |─────────|
+                | 1.Buy   |
+                | 2.Sell  |
+                | 3.Breed |
+                | 4.Back  |
+                |─────────|
+                    """, 1, 4);
         switch (option) {
             case 1 -> buy();
             case 2 -> sell();
@@ -277,50 +277,56 @@ public class functions {
             System.out.println("You dont have enought money");
         }
     }
-    public void sell(){
+
+    public void sell() {
         System.out.println("Welcome to the shop!!");
         System.out.println("Here you have a list of your animals:");
         Animals selected = listAnimals(true, true, false);
-            currentUser.setMoney(currentUser.getMoney() + selected.getPrice()/2);
-            selected.setMine(false);
-            System.out.println("You have sold " + selected.getName()); 
+        currentUser.setMoney(currentUser.getMoney() + selected.getPrice() / 2);
+        selected.setMine(false);
+        System.out.println("You have sold " + selected.getName());
     };
-
 
     // Breeder where if you pay 500$ you can breed an animal that has 60% of being a
     // shit 30% of being normal 10% of being gigachad
     /**
-     * Este metodo consiste en un criadero en el cual tienes dos opciones el animal normal o el Super animal este superanimal tiene mas posibilidades de salir uno mejor y basicamente usa varios random para coger entre un pocho, normal, chetado una vez a decidido entre uno de ellos se hace otro random para las skills que en funcion de primer random el valor minimo sera mayor o menor haciendo que sea mas facil que toque un numero alto.
+     * Este metodo consiste en un criadero en el cual tienes dos opciones el animal
+     * normal o el Super animal este superanimal tiene mas posibilidades de salir
+     * uno mejor y basicamente usa varios random para coger entre un pocho, normal,
+     * chetado una vez a decidido entre uno de ellos se hace otro random para las
+     * skills que en funcion de primer random el valor minimo sera mayor o menor
+     * haciendo que sea mas facil que toque un numero alto.
      */
-    public void breeder(){
-        int option=ReadUtilities.ReadIntMM("""
-    |─────────────────────────────────────────|
-    |   Welcome!                              |
-    |   What type of animal do you wana get?  |
-    |   1.Normal 500$                         |
-    |   2.Super Animal 1000$                  |
-    |   3.Back                                |
-    |─────────────────────────────────────────|
-        """, 1, 3);
+    public void breeder() {
+        int option = ReadUtilities.ReadIntMM("""
+                |─────────────────────────────────────────|
+                |   Welcome!                              |
+                |   What type of animal do you wana get?  |
+                |   1.Normal 500$                         |
+                |   2.Super Animal 1000$                  |
+                |   3.Back                                |
+                |─────────────────────────────────────────|
+                    """, 1, 3);
         switch (option) {
-            case 1 -> { if (currentUser.getMoney()>500){
-                currentUser.setMoney(currentUser.getMoney()-500);
-                String[] type = {"Wolf","Horse","Greyhound","Camels"};
-                String animtoGen=type[rand.nextInt(type.length)];
-                if (animtoGen=="Wolf"){
-                    Wgenerator.generateWolf(animalList);
-                }else if (animtoGen=="Horse") {
-                    Hgenerator.generateHorse(animalList);
-                }else if (animtoGen=="Greyhound") {
-                    Ggenerator.generateGreyhound(animalList);
-                }else if (animtoGen=="Camels") {
-                    Cgenerator.generateCamel(animalList);
-                }
+            case 1 -> {
+                if (currentUser.getMoney() > 500) {
+                    currentUser.setMoney(currentUser.getMoney() - 500);
+                    String[] type = { "Wolf", "Horse", "Greyhound", "Camels" };
+                    String animtoGen = type[rand.nextInt(type.length)];
+                    if (animtoGen == "Wolf") {
+                        Wgenerator.generateWolf(animalList);
+                    } else if (animtoGen == "Horse") {
+                        Hgenerator.generateHorse(animalList);
+                    } else if (animtoGen == "Greyhound") {
+                        Ggenerator.generateGreyhound(animalList);
+                    } else if (animtoGen == "Camels") {
+                        Cgenerator.generateCamel(animalList);
+                    }
                     int numeroAleatorio = rand.nextInt(10);
-                    int last = animalList.size()-1;
+                    int last = animalList.size() - 1;
                     animalList.get(last).setMine(true);
                     animalList.get(last).setBirth(LocalDate.now());
-                    if(numeroAleatorio > 0 && numeroAleatorio < 6){
+                    if (numeroAleatorio > 0 && numeroAleatorio < 6) {
                         int skillsAleatorio = rand.nextInt(30);
                         animalList.get(last).setSpeed(skillsAleatorio);
 
@@ -329,69 +335,65 @@ public class functions {
 
                         skillsAleatorio = rand.nextInt(30);
                         animalList.get(last).setAgility(skillsAleatorio);
-                    }else if(numeroAleatorio > 5 && numeroAleatorio < 9) {
-                        int skillsAleatorio = rand.nextInt(30)+30;
+                    } else if (numeroAleatorio > 5 && numeroAleatorio < 9) {
+                        int skillsAleatorio = rand.nextInt(30) + 30;
                         animalList.get(last).setSpeed(skillsAleatorio);
 
-                        skillsAleatorio = rand.nextInt(30)+30;
+                        skillsAleatorio = rand.nextInt(30) + 30;
                         animalList.get(last).setEndurance(skillsAleatorio);
 
-                        skillsAleatorio = rand.nextInt(30)+30;
+                        skillsAleatorio = rand.nextInt(30) + 30;
                         animalList.get(last).setAgility(skillsAleatorio);
-                    }else {
-                        int skillsAleatorio = rand.nextInt(41)+60;
+                    } else {
+                        int skillsAleatorio = rand.nextInt(41) + 60;
                         animalList.get(last).setSpeed(skillsAleatorio);
 
-                        skillsAleatorio = rand.nextInt(41)+60;
+                        skillsAleatorio = rand.nextInt(41) + 60;
                         animalList.get(last).setEndurance(skillsAleatorio);
 
-                        skillsAleatorio = rand.nextInt(41)+60;
+                        skillsAleatorio = rand.nextInt(41) + 60;
                         animalList.get(last).setAgility(skillsAleatorio);
                     }
-                    // pocho 6 numeros = 1-30
-                    // medio 3 numeros = 30-60
-                    // gigachad 1 numero = 60-100
-                    
-
-            }else {
-                System.out.println("You dont have enought money");
-            } 
-            }
-            case 2 -> { if (currentUser.getMoney()>1000){
-                currentUser.setMoney(currentUser.getMoney()-1000);
-                String[] type = {"Wolf","Horse","Greyhound","Camels"};
-                String animtoGen=type[rand.nextInt(type.length)];
-                if (animtoGen=="Wolf"){
-                    Wgenerator.generateWolf(animalList);
-                }else if (animtoGen=="Horse") {
-                    Hgenerator.generateHorse(animalList);
-                }else if (animtoGen=="Greyhound") {
-                    Ggenerator.generateGreyhound(animalList);
-                }else if (animtoGen=="Camels") {
-                    Cgenerator.generateCamel(animalList);
+                } else {
+                    System.out.println("You dont have enought money");
                 }
+            }
+            case 2 -> {
+                if (currentUser.getMoney() > 1000) {
+                    currentUser.setMoney(currentUser.getMoney() - 1000);
+                    String[] type = { "Wolf", "Horse", "Greyhound", "Camels" };
+                    String animtoGen = type[rand.nextInt(type.length)];
+                    if (animtoGen == "Wolf") {
+                        Wgenerator.generateWolf(animalList);
+                    } else if (animtoGen == "Horse") {
+                        Hgenerator.generateHorse(animalList);
+                    } else if (animtoGen == "Greyhound") {
+                        Ggenerator.generateGreyhound(animalList);
+                    } else if (animtoGen == "Camels") {
+                        Cgenerator.generateCamel(animalList);
+                    }
                     int numeroAleatorio = rand.nextInt(10);
-                    int last = animalList.size()-1;
+                    int last = animalList.size() - 1;
                     animalList.get(last).setMine(true);
-                    if(numeroAleatorio > 0 && numeroAleatorio < 6){
-                        int skillsAleatorio = rand.nextInt(41)+60;
+                    if (numeroAleatorio > 0 && numeroAleatorio < 6) {
+                        int skillsAleatorio = rand.nextInt(41) + 60;
                         animalList.get(last).setSpeed(skillsAleatorio);
 
-                        skillsAleatorio = rand.nextInt(41)+60;
+                        skillsAleatorio = rand.nextInt(41) + 60;
                         animalList.get(last).setEndurance(skillsAleatorio);
 
-                        skillsAleatorio = rand.nextInt(41)+60;
+                        skillsAleatorio = rand.nextInt(41) + 60;
                         animalList.get(last).setAgility(skillsAleatorio);
-                    }else if(numeroAleatorio > 5 && numeroAleatorio < 9) {
-                        int skillsAleatorio = rand.nextInt(30)+30;
+                    } else if (numeroAleatorio > 5 && numeroAleatorio < 9) {
+                        int skillsAleatorio = rand.nextInt(30) + 30;
                         animalList.get(last).setSpeed(skillsAleatorio);
 
-                        skillsAleatorio = rand.nextInt(30)+30;
+                        skillsAleatorio = rand.nextInt(30) + 30;
                         animalList.get(last).setEndurance(skillsAleatorio);
 
-                        skillsAleatorio = rand.nextInt(30)+30;
+                        skillsAleatorio = rand.nextInt(30) + 30;
                         animalList.get(last).setAgility(skillsAleatorio);
-                    }else {
+                    } else {
                         int skillsAleatorio = rand.nextInt(30);
                         animalList.get(last).setSpeed(skillsAleatorio);
 
@@ -401,10 +403,11 @@ public class functions {
                         skillsAleatorio = rand.nextInt(30);
                         animalList.get(last).setAgility(skillsAleatorio);
                     }
-                    animalList.get(last).setPrice((animalList.get(last).getSpeed() + animalList.get(last).getEndurance() + animalList.get(last).getAgility())*8);
-            }else {
-                System.out.println("You dont have enought money");
-            } 
+                    animalList.get(last).setPrice((animalList.get(last).getSpeed() + animalList.get(last).getEndurance()
+                            + animalList.get(last).getAgility()) * 8);
+                } else {
+                    System.out.println("You dont have enought money");
+                }
             }
             case 3 -> submenuShop();
         }
@@ -414,66 +417,66 @@ public class functions {
     // owned animal selector
     /**
      * Este metodo sirve para seleccionar un animal de la lista
-     * @param mine Con este parametro indicamos la metodo si queremos que se muestre una list de mis animales o de los animales que no son mios por ejemplo para la tienda  a comprar un animal llamariamos al metodo y pondriamos el parametro false para indicar que queremos seleccionar los animales que no son del usuario
-     * @param showPrice Con este parametro boolean indicamos al metodo si queremos mostrar o no el precio pro ejemplo a la hora de vender/comprar es importante mostrar el precio y por lo tanto este seria true
-     * @param buy Este metodo sirve para indicar si es para comprar o vender y segun su valor  el precio se dividira entre dos por ejemplo a la hora de vender un animal su precio es la mitad y el buy seria false 
-     * @return Este metodo devuelve un objeto de la clase animal que es el animal que se ha seleccionado
+     * 
+     * @param mine      Con este parametro indicamos la metodo si queremos que se
+     *                  muestre una list de mis animales o de los animales que no
+     *                  son mios por ejemplo para la tienda a comprar un animal
+     *                  llamariamos al metodo y pondriamos el parametro false para
+     *                  indicar que queremos seleccionar los animales que no son del
+     *                  usuario
+     * @param showPrice Con este parametro boolean indicamos al metodo si queremos
+     *                  mostrar o no el precio pro ejemplo a la hora de
+     *                  vender/comprar es importante mostrar el precio y por lo
+     *                  tanto este seria true
+     * @param buy       Este metodo sirve para indicar si es para comprar o vender y
+     *                  segun su valor el precio se dividira entre dos por ejemplo a
+     *                  la hora de vender un animal su precio es la mitad y el buy
+     *                  seria false
+     * @return Este metodo devuelve un objeto de la clase animal que es el animal
+     *         que se ha seleccionado
      */
-    public Animals listAnimals (boolean mine, boolean showPrice, boolean buy) {
+    public Animals listAnimals(boolean mine, boolean showPrice, boolean buy) {
         Scanner leer = new Scanner(System.in);
-        Animals selected=null;
-        do{
-        System.out.println("Select an animal from the list using its ID or type -1 to go back");
-        for (Animals animal : animalList) {
-            if(mine){
-            if (animal.isMine()) {
-                    animal.viewAnimalInfo(animal.getClass().getName(), showPrice, buy);
-                System.out.println("ID:"+ animalList.indexOf(animal));
-            }
-            }else{
-                if (!animal.isMine()) {
-                    animal.viewAnimalInfo(animal.getClass().getName(), showPrice, buy);
-                    System.out.println("ID:"+ animalList.indexOf(animal));
+        Animals selected = null;
+        do {
+            System.out.println("Select an animal from the list using its ID or type -1 to go back");
+            for (Animals animal : animalList) {
+                if (mine) {
+                    if (animal.isMine()) {
+                        animal.viewAnimalInfo(animal.getClass().getName(), showPrice, buy);
+                        System.out.println("ID:" + animalList.indexOf(animal));
+                    }
+                } else {
+                    if (!animal.isMine()) {
+                        animal.viewAnimalInfo(animal.getClass().getName(), showPrice, buy);
+                        System.out.println("ID:" + animalList.indexOf(animal));
+                    }
                 }
-            } 
-        }
-        int id = ReadUtilities.ReadIntMM(null, -1 , animalList.size());
-        if (id==-1){
-            menu();
-        }else{
-            selected=animalList.get(id);
-        }
-        
-        if (mine) {
-            if (selected.isMine()){
-                return selected;
-            }else {
-                selected=null;
-                System.out.println("You selected an animal that wasnt on the list");
             }
-        }else {
-            if (!selected.isMine()){
-                return selected;
-            }else {
-                selected=null;
-                System.out.println("You selected an animal that wasnt on the list");
+            int id = ReadUtilities.ReadIntMM(null, -1, animalList.size());
+            if (id == -1) {
+                menu();
+            } else {
+                selected = animalList.get(id);
             }
-        }
-    }while(selected==null);
-    return selected;
+
+            if (mine) {
+                if (selected.isMine()) {
+                    return selected;
+                } else {
+                    selected = null;
+                    System.out.println("You selected an animal that wasnt on the list");
+                }
+            } else {
+                if (!selected.isMine()) {
+                    return selected;
+                } else {
+                    selected = null;
+                    System.out.println("You selected an animal that wasnt on the list");
+                }
+            }
+        } while (selected == null);
+        return selected;
     }
 
-
 }
-
-// System.out.println("""            
-//     .  ,
-//     |\\/|
-//     bd "n.
-//    /   _,"n.___.,--x.
-//   '\\             Y
-//    ~~   \\       L   7|
-//          H l--'~\\\\ (||
-//          H l     H |`'    -Row (Rowan Crawford)
-//          H [     H [
-//     ____//,]____//,]___""");
