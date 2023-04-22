@@ -2,6 +2,7 @@ package Models;
 
 import java.time.LocalDate;
 
+import Controllers.*;
 import Utils.ReadUtilities;
 
 public class Wolf extends Animals implements interact {
@@ -15,31 +16,31 @@ public class Wolf extends Animals implements interact {
 
     @Override
     public void viewAscii() {
-            System.out.print("""   
+        System.out.print("""
 
-                                  /^._
-                    ,___,--~~~~--' /'~
-                    `~--~\\ )___,)/'
-                        (/\\\\_  (/\\\\_
-                        """);
+                              /^._
+                ,___,--~~~~--' /'~
+                `~--~\\ )___,)/'
+                    (/\\\\_  (/\\\\_
+                    """);
     };
 
     @Override
     public void eat() {
         int option = ReadUtilities.ReadIntMM("""
-            What do you want to feed your Wolf?
-            1.Meat
-            2.Your hand
-            """, 1, 2);
-            viewAscii();
-            if(option==2) {
-                System.out.println("Are you dumb? Why would you do that");
-                System.out.println("GAME OVER");
-                System.exit(0);
-            }else {
-                System.out.println("Your wolf is eating");
-            }
-            
+                What do you want to feed your Wolf?
+                1.Meat
+                2.Your hand
+                """, 1, 2);
+        viewAscii();
+        if (option == 2) {
+            System.out.println("Are you dumb? Why would you do that");
+            System.out.println("GAME OVER");
+            System.exit(0);
+        } else {
+            System.out.println("Your wolf is eating");
+        }
+
     }
 
     @Override
@@ -50,9 +51,25 @@ public class Wolf extends Animals implements interact {
 
     @Override
     public void patpat() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'patpat'");
-    }
+        functions m = new functions();
+        int opcion = ReadUtilities.ReadIntMM("""
+                    Where do you want to pat your wofl?
+                    1.Head
+                    2.Back
+                    3.Belly
+                    4. Go back
+                """, 1, 4);
+        switch (opcion) {
+            case 1, 2, 3 -> {
 
-    
+                System.out.println("Are you stupid why would you try to pay a wolf?");
+                System.out.println("GAME OVER");
+                System.exit(0);
+            }
+            case 4 -> {
+                System.out.println("You are smart by not trying to pat a wolf");
+                m.menu();
+            }
+        }
+    }
 }
