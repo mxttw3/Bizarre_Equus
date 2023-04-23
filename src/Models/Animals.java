@@ -1,9 +1,7 @@
 package Models;
-
-import java.util.ArrayList;
-import java.sql.Date;
 import java.time.LocalDate;
-public abstract class Animals {
+
+public abstract class Animals{
     private static int recuento = 0; // TODO: Ver en ingles
     private final int legs = 4;
     private String name;
@@ -49,6 +47,12 @@ public abstract class Animals {
 
     public void viewAscii() {
         System.out.println("-- ANIMAL --");
+    }
+
+    public String getAscii(){
+        return """
+                -- ANIMAL --
+                """;
     }
 
     public void viewAnimalInfo(String type, boolean showPrice, boolean buy) {
@@ -132,9 +136,9 @@ public abstract class Animals {
     public void setBirth(LocalDate birth) {
         Birth = birth;
     }
+    public void eat() {}
+    public void play() {}
+    public void patpat() {}
 
-    public void eat() {
-        
-    }
 
 }

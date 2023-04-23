@@ -5,7 +5,6 @@ import Generators.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -15,11 +14,14 @@ import Utils.*;
 public class functions {
     ArrayList<Animals> animalList = new ArrayList<Animals>(); // |─
     ArrayList<Animals> cincoObjetos = new ArrayList<Animals>();
+    ArrayList<Animals> MyAnimals = new ArrayList<Animals>();
+
     HorseGenerator Hgenerator = new HorseGenerator();
     CamelGenerator Cgenerator = new CamelGenerator();
     GreyhoundGenerator Ggenerator = new GreyhoundGenerator();
     WolfGenerator Wgenerator = new WolfGenerator();
     User currentUser = null;
+    Animals winner = null;
     Random rand = new Random();
 
     /**
@@ -33,7 +35,13 @@ public class functions {
         Cgenerator.generateCamel(animalList);
         Ggenerator.generateGreyhound(animalList);
         Wgenerator.generateWolf(animalList);
-
+        System.out.println("""            
+                        ____  _                                                       \s
+                       / __ )(_)___  ____ ______________     _________ _________  _____
+                      / __  / /_  / / __ `/ ___/ ___/ _ \\   / ___/ __ `/ ___/ _ \\/ ___/
+                     / /_/ / / / /_/ /_/ / /  / /  /  __/  / /  / /_/ / /__/  __(__  )\s
+                    /_____/_/ /___/\\__,_/_/  /_/   \\___/  /_/   \\__,_/\\___/\\___/____/ \s
+                    """);
         System.out.println("Wellcome to Bizarre Races!!!!");
         Thread.sleep(2000);
         String name = ReadUtilities.readWord("""
@@ -67,7 +75,7 @@ public class functions {
         }
         int Vdifficulty = ReadUtilities.ReadIntMM("""
                 |────────────────────────────────|
-                |  What difficulty you choose :) |
+                | What difficulty you choose :)  |
                 | 1.Easy Peasy                   |
                 | 2.Medium                       |
                 | 3.Demon                        |
@@ -83,7 +91,8 @@ public class functions {
         currentUser = new User(name, lastName, age, Vgender, optionD);
     }
 
-    public void menu() {
+    // MENU
+    public void menu() throws InterruptedException {
         boolean bucle = true;
 
         do {
@@ -94,36 +103,82 @@ public class functions {
                     | 3.Shop       |
                     | 4.My animals |
                     | 5.Exit       |
-                    |──────────────|
+                    |──────────────| 
                     """, 1, 5);
 
             switch (option) {
                 case 1 -> submenuBet();
                 case 2 -> currentUser.viewUserInfo();
                 case 3 -> submenuShop();
-                case 4 -> myAnimals();
-                case 5 -> System.exit(0);
+                case 4 -> submenuMyAnimals();
+                case 5 -> bucle = false;
             }
-        } while (bucle);
+        }while(bucle && currentUser.getMoney() > 0);
+
+        if (currentUser.getMoney() <= 0) {
+            System.out.println("\u001B[31mYou don't have money, YOU LOST\u001B[0m");
+        };
     }
 
-    public void myAnimals() {
-        int option = ReadUtilities.ReadIntMM("""
-                            |──────────────────────|
-                            | 1.List of my Animals |
-                            | 2.Play with them     |
-                            | 3.Give them food     |
-                            | 4.My animals         |
-                            | 5.Back               |
-                            |──────────────────────|
-                """, 1, 5);
-        switch (option) {
-            case 1 -> listAnimals(true, false, true);
-            case 3 -> listAnimals(true, false, true).eat();
+    // MY ANIMALS
+    public void submenuMyAnimals() throws InterruptedException {
+        //Crear vector de tipo animals
+        System.out.println("Your animals are:");
+        int bucle = 0;
+        for (Animals object : animalList) {
+            // Comprobar si su atributo isMine es true
+            if (object.isMine()) {
+                // Si es true, añadir el objeto a la lista creada en el paso 1
+                System.out.println(bucle + ". " + object.getName());
+                bucle++;
+            }
         }
+
+        int bucle2 = 0;
+
+        for (Animals object : animalList) {
+            // Comprobar si su atributo isMine es true
+            if (object.isMine()) {
+                // Si es true, añadir el objeto a la lista creada en el paso 1
+                MyAnimals.add(object);
+                bucle2++;
+            }
+        }
+
+        if (bucle > 0) {
+            int option2 = ReadUtilities.ReadIntMM("What animal you want to select", 0, bucle);
+
+            int option = ReadUtilities.ReadIntMM("""
+                |──────────────|
+                | 1.Feed       |
+                | 2.Play       |
+                | 3.Pat Pat    |
+                | 4.Back       |
+                |──────────────| 
+                    """, 0, 4);
+            switch (option) {
+                case 1 -> MyAnimals.get(option2).eat();
+                case 2 -> MyAnimals.get(option2).play();
+                case 3 -> MyAnimals.get(option2).patpat();
+                case 4 -> {
+                    MyAnimals.clear();
+                    menu();}
+            }
+        }else {
+            //Clean screen
+            for (int x = 0; x < 100; x++) {
+                System.out.println();
+            }
+            System.out.println("\u001B[31mYou don't have animals\u001B[0m");
+            Thread.sleep(2000);
+            MyAnimals.clear();
+            menu();
+        }
+        MyAnimals.clear();
     }
 
-    public void submenuBet() {
+    // SUBMENU BET
+    public void submenuBet() throws InterruptedException {
         int option = ReadUtilities.ReadIntMM("""
                 |─────────────────|
                 | 1.Put my animal |
@@ -134,18 +189,14 @@ public class functions {
                     """, 1, 3);
         switch (option) {
             case 1 -> AnimalsForRace(false);
-            case 2 -> AnimalsForRace(true);// TODO: bet menu
+            case 2 -> AnimalsForRace(true);
             case 3 -> menu();
         }
     }
 
-    /**
-     * TODO:No se como funciona haz tu este java doc
-     * 
-     * @param Vanials
-     */
-    public void AnimalsForRace(boolean Vanials) {
-        // TODO: poner animales en la carrera
+    public void AnimalsForRace(boolean Vanials) throws InterruptedException {
+        //TODO: poner animales en la carrera
+        Scanner read = new Scanner(System.in);
         if (Vanials) {
             int n = animalList.size();
             for (int i = 0; i < 5; i++) {
@@ -154,11 +205,20 @@ public class functions {
             }
 
             // Imprime los 5 objetos aleatorios
-            System.out.println("Los 5 objetos aleatorios son:");
+            System.out.println("Los 5 animales de la carrera son:");
             for (Animals objeto : cincoObjetos) {
                 objeto.viewAscii();
+                System.out.println();
             }
 
+            System.out.println("""
+                INTRO PARA CONTINUAR ->
+                """);
+            read.nextLine();
+            //Clean screen
+            for (int i = 0; i < 69; i++) {
+                System.out.println();
+            }
             StartRace();
             cincoObjetos.clear();
         } else {
@@ -168,29 +228,79 @@ public class functions {
                 cincoObjetos.add(animalList.get(randomIndex));
             }
 
-            // Imprime los 5 objetos aleatorios
-            System.out.println("Los 5 objetos aleatorios son:");
-            for (Animals objeto : cincoObjetos) {
-                System.out.println(objeto);
+            //TODO: poner tu animal en la carrera
+            System.out.println("Your animals are:");
+            int bucle = 0;
+            for (Animals object : animalList) {
+                // Comprobar si su atributo isMine es true
+                if (object.isMine()) {
+                    // Si es true, añadir el objeto a la lista creada en el paso 1
+                    System.out.println(bucle + ". " + object.getName());
+                    bucle++;
+                }
+            }
+            if (bucle == 0) {
+                cincoObjetos.clear();
+                //Clean screen
+                for (int x = 0; x < 100; x++) {
+                    System.out.println();
+                }
+                System.out.println("\u001B[31mYou don't have animals\u001B[0m");
+                Thread.sleep(2000);
+                menu();
+            }else{
+                //!TODO: ELEJIR ANIMAL
+
+                int bucle4 = 0;
+        
+                for (Animals object : animalList) {
+                    // Comprobar si su atributo isMine es true
+                    if (object.isMine()) {
+                        // Si es true, añadir el objeto a la lista creada en el paso 1
+                        MyAnimals.add(object);
+                        bucle4++;
+                    }
+                }
+    
+                int option2 = ReadUtilities.ReadIntMM("What animal you want to select", 0, bucle);
+                cincoObjetos.add(MyAnimals.get(option2));
+                //!
+
             }
 
-            // TODO: Cojer caballo de tu lista
-            cincoObjetos.add(listAnimals(true, false, true));
+            // Imprime los 5 objetos aleatorios
+            System.out.println("Los 5 animales de la carrera son:");
+            for (Animals objeto : cincoObjetos) {
+                objeto.viewAscii();
+                System.out.println();
+            }
+
+            System.out.println("""
+                INTRO PARA CONTINUAR ->
+                """);
+            read.nextLine();
+            //Clean screen
+            for (int i = 0; i < 69; i++) {
+                System.out.println();
+            }
             StartRace();
             cincoObjetos.clear();
         }
     }
 
-    public void StartRace() {
-        // TODO: EmpezarCarrera
+    public void StartRace() throws InterruptedException {
+        
+        //TODO: EmpezarCarrera
+        Scanner read = new Scanner(System.in);
         Animals[][] RaceBoard = new Animals[5][8];
         int[] VectorSkills = new int[5]; // Vector con las skills del animal
         int[] RandomSkills = new int[5]; // crea un vector de longitud 5
+        String[][] StringSout = new String[5][8]; // crea un vector de longitud 5
 
         for (int i = 0; i < cincoObjetos.size(); i++) {
             RaceBoard[i][0] = cincoObjetos.get(i);
-        }
-        ;
+            StringSout[i][0] = cincoObjetos.get(i).getAscii();
+        };
 
         // Calcular las skills de los animales
         for (int i = 0; i < cincoObjetos.size(); i++) {
@@ -199,16 +309,40 @@ public class functions {
         }
         ;
 
-        do {
+        //TODO: Apostar por un animal
+
+        System.out.println("For what animal do you want to bet?\n");
+        System.out.println("0. " + cincoObjetos.get(0).getName());
+        System.out.println("1. " + cincoObjetos.get(1).getName());
+        System.out.println("2. " + cincoObjetos.get(2).getName());
+        System.out.println("3. " + cincoObjetos.get(3).getName());
+        System.out.println("4. " + cincoObjetos.get(4).getName());
+        int option = ReadUtilities.ReadIntMM("", 0, 4);
+
+        //Clean screen
+        for (int x = 0; x < 100; x++) {
+            System.out.println();
+        }
+
+        System.out.println("How much money do you want to bet?");
+        int bet = 0;
+        do{
+            bet = ReadUtilities.ReadIntMM("", 1, 1000000);
+            if (bet > currentUser.getMoney()) {
+                System.out.println("You don't have enough money");
+            }
+        }while(bet > currentUser.getMoney());
+        // Animals animalApostado = listAnimals(true, false, false);
+
+        boolean win = false;
+        do{
             int max = 0, MaxPosition = 0, Vcolumn = 0;
             // Crear probabilidad de pasar a la siguiente casilla del tablero
             for (int i = 0; i < cincoObjetos.size(); i++) {
-                do {
-                    RandomSkills[i] = (int) (Math.random() * VectorSkills[i]);
-                    System.out.println(VectorSkills[i]);
-                } while (RandomSkills[i] == 0);
-            }
-            ;
+                do{
+                    RandomSkills[i] = (int)(Math.random() * VectorSkills[i]);
+                }while(RandomSkills[i] == 0);
+            };
 
             // Buscar numero ganador para moverlo
             for (int i = 0; i < RandomSkills.length; i++) {
@@ -233,21 +367,86 @@ public class functions {
             RaceBoard[MaxPosition][Vcolumn] = cincoObjetos.get(MaxPosition);
             RaceBoard[MaxPosition][Vcolumn - 1] = null;
 
-            for (int i = 0; i < RaceBoard.length; i++) {
-                for (int j = 0; j < RaceBoard[i].length; j++) {
+            StringSout[MaxPosition][Vcolumn] = cincoObjetos.get(MaxPosition).getAscii();
+            StringSout[MaxPosition][Vcolumn - 1] = null;
+
+            for(int i = 0; i < RaceBoard.length; i++) {
+                if (win) {
+                    //Clean screen
+                    for (int x = 0; x < 100; x++) {
+                        System.out.println();
+                    }
+                    System.out.println("""            
+                    /$$      /$$ /$$$$$$ /$$   /$$ /$$   /$$ /$$$$$$$$ /$$$$$$$\s
+                   | $$  /$ | $$|_  $$_/| $$$ | $$| $$$ | $$| $$_____/| $$__  $$
+                   | $$ /$$$| $$  | $$  | $$$$| $$| $$$$| $$| $$      | $$  \\ $$
+                   | $$/$$ $$ $$  | $$  | $$ $$ $$| $$ $$ $$| $$$$$   | $$$$$$$/
+                   | $$$$_  $$$$  | $$  | $$  $$$$| $$  $$$$| $$__/   | $$__  $$
+                   | $$$/ \\  $$$  | $$  | $$\\  $$$| $$\\  $$$| $$      | $$  \\ $$
+                   | $$/   \\  $$ /$$$$$$| $$ \\  $$| $$ \\  $$| $$$$$$$$| $$  | $$
+                   |__/     \\__/|______/|__/  \\__/|__/  \\__/|________/|__/  |__/
+                   """);
+
+                    System.out.println(" Felicidades, \u001B[31m" + winner.getName() + "\u001B[0m!");
+                    
+                    System.out.println("""
+                        INTRO PARA CONTINUAR ->
+                        """);
+                    read.nextLine();
+                    break;
+                }
+                for(int j = 0; j < RaceBoard[i].length; j++) {
                     if (RaceBoard[i][j] == null) {
-                        System.out.print("             ");
+                        System.out.print("- - - ");
                     } else {
-                        RaceBoard[i][j].viewAscii();
+                        if (RaceBoard[i][j] instanceof Horse) {
+                            System.out.print("\033[0;31m" + RaceBoard[i][j].getName() + "\033[0m" + "(H)");
+                        } else if (RaceBoard[i][j] instanceof Wolf) {
+                            System.out.print("\033[0;32m" + RaceBoard[i][j].getName() + "\033[0m" + "(W)");
+                        } else if (RaceBoard[i][j] instanceof Camels) {
+                            System.out.print("\033[0;33m" + RaceBoard[i][j].getName() + "\033[0m" + "(C)");
+                        } else if (RaceBoard[i][j] instanceof Greyhound) {
+                            System.out.print("\033[0;34m" + RaceBoard[i][j].getName() + "\033[0m" + "(G)");
+                        } else {
+                            System.out.print(RaceBoard[i][j].getName());
+                        }
+                        if (j == 7) {
+                            winner =  RaceBoard[i][j];
+                            win = true;
+                        };
                     }
                 }
                 System.out.println();
             }
-        } while (true);
+            Thread.sleep(1000);
+            //Clean screen
+            for (int i = 0; i < 100; i++) {
+                System.out.println();
+            }
+        }while (!win);
+        
+        //Comprobar si ha ganado: 
+        if (cincoObjetos.get(option) == winner) {
+            System.out.println("YOU WON :D");
+            currentUser.setMoney(currentUser.getMoney() + bet);
+            System.out.println("Current money: " + currentUser.getMoney() + "$");
+            System.out.println("""
+                INTRO FOR CONTINUE ->
+                """);
+            read.nextLine();
+        }else{
+            System.out.println("YOU LOST :(\n");
+            currentUser.setMoney(currentUser.getMoney() - bet);
+            System.out.println("Current money: " + currentUser.getMoney() + "$");
+            System.out.println("""
+                INTRO FOR CONTINUE ->
+                """);
+            read.nextLine();
+        }
     }
 
     // SUBMENU SHOP
-    public void submenuShop() {
+    public void submenuShop() throws InterruptedException {
         int option = ReadUtilities.ReadIntMM("""
                 |─────────|
                 | 1.Buy   |
@@ -297,7 +496,7 @@ public class functions {
      * skills que en funcion de primer random el valor minimo sera mayor o menor
      * haciendo que sea mas facil que toque un numero alto.
      */
-    public void breeder() {
+    public void breeder()  throws InterruptedException{
         int option = ReadUtilities.ReadIntMM("""
                 |─────────────────────────────────────────|
                 |   Welcome!                              |
