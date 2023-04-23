@@ -13,20 +13,6 @@ public class Greyhound extends Animals implements interact {
     }
 
     @Override
-    public void eat() {
-        
-        ReadUtilities.ReadIntMM("""
-        What do you want to feed your dog?
-        1.Meat
-        2.Carrots
-        3.Apples
-        """, 1, 3);
-        viewAscii();
-        System.out.println("Your dog is eating");
-
-    }
-
-    @Override
     public String getAscii(){
         return """            
             /)-_-(\\
