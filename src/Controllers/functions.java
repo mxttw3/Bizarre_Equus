@@ -464,7 +464,7 @@ public class functions {
     }
 
     // Buy animal
-    public void buy() {
+    public void buy() throws InterruptedException {
         System.out.println("Welcome to the shop!!");
         System.out.println("Here you have a list of our available animals:");
         Animals selected = listAnimals(false, true, true);
@@ -477,7 +477,7 @@ public class functions {
         }
     }
 
-    public void sell() {
+    public void sell() throws InterruptedException {
         System.out.println("Welcome to the shop!!");
         System.out.println("Here you have a list of your animals:");
         Animals selected = listAnimals(true, true, false);
@@ -634,7 +634,7 @@ public class functions {
      * @return Este metodo devuelve un objeto de la clase animal que es el animal
      *         que se ha seleccionado
      */
-    public Animals listAnimals(boolean mine, boolean showPrice, boolean buy) {
+    public Animals listAnimals(boolean mine, boolean showPrice, boolean buy) throws InterruptedException {
         Scanner leer = new Scanner(System.in);
         Animals selected = null;
         do {
