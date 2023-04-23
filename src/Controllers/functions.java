@@ -264,8 +264,6 @@ public class functions {
     
                 int option2 = ReadUtilities.ReadIntMM("What animal you want to select", 0, bucle);
                 cincoObjetos.add(MyAnimals.get(option2));
-                //!
-
             }
 
             // Imprime los 5 objetos aleatorios
